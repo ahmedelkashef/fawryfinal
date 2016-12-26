@@ -1,0 +1,101 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF"
+    android:gravity="right">
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="50dp"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    android:background="#FFF"
+    android:id="@+id/horizontalLayout"
+    android:layout_marginTop="5dp"
+    android:weightSum="1">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onSearchClick"
+        android:text="بدأ البحث للموقع الجديد"
+        android:textSize="20dp"
+        android:layout_gravity="center|left"
+        android:background="#FFF"
+        android:textColor="#006790"
+        android:id="@+id/searchButton"
+        android:layout_marginLeft="10dp"
+        android:visibility="invisible"
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:onClick="onRefreshClick"
+            android:background="#FFF"
+            android:scaleType="fitCenter"
+            android:id="@+id/Refresh"
+
+            android:visibility="invisible"
+
+            android:src="@drawable/ref"
+            android:layout_gravity="center|right"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:onClick="onHomeClick"
+            android:text="Home"
+            android:textSize="20dp"
+            android:background="#FFF"
+            android:id="@+id/homeButton"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/home"
+            android:scaleType="fitCenter"
+
+
+            android:layout_gravity="center|right"
+            android:layout_marginRight="10dp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+
+<TextView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:textSize="20dp"
+android:textStyle="bold"
+android:background="#006790"
+android:textColorHighlight="#5c1717"
+android:textColor="#FFF"
+android:textAlignment="center"
+android:text="  انقر فى أى مكان لاختيار موقع و البحث من جديد " />
+
+
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:map="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/map"
+android:name="com.google.android.gms.maps.SupportMapFragment"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.cloudypedia.fawrysurveillanceapp.Activites.MapsActivity" />
+
+ </LinearLayout>
+
+
+

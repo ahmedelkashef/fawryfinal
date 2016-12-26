@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgapp"
+    android:weightSum="1"
+    android:baselineAligned="false"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="تقرير زيارة"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/holo_orange_light" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_txt"
+        android:hint="Date"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/name_txt"
+        android:hint="Name"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_txt"
+        android:hint="Location"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/MerchantID_txt"
+        android:hint="Merchant ID "
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/GISLocation_txt"
+        android:hint="GIS Location"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Range"
+        android:id="@+id/toggleButton"
+        android:background="@android:color/holo_green_dark" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/salesName_txt"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:hint="Sales Name"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/salesEmail_txt"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:hint="Email"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/salesId_txt"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:hint="ID"
+        android:layout_weight="0.05"
+        android:textColor="@android:color/holo_orange_light"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_orange_light" />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+       android:text="Terminal"
+        android:textSize="24sp"
+        android:textColor="@android:color/holo_orange_light"
+        android:layout_weight="0.05"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TerminalID"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:layout_weight="0.05"
+        android:hint="Terminal ID"
+        android:textColor="@android:color/holo_orange_light"
+        />
+
+
+    <Button
+        android:text="Save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Save_btn"
+        android:layout_weight="0.05"
+        android:visibility="invisible"/>
+
+    <Button
+        android:text="Report Incident"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Report_btn"
+        android:layout_weight="0.05"/>
+
+
+</LinearLayout>

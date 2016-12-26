@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "485248112753",
+    "project_id": "fawrysurveillanceapp"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485248112753:android:811289eeec1e1ac0",
+        "android_client_info": {
+          "package_name": "com.example.cloudypedia.fawrysurveillanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485248112753-flpdoa1d3m781t5de0h7nd3g7gi5qvd8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cloudypedia.fawrysurveillanceapp",
+            "certificate_hash": "785DB149BEEACCF42890637C69A7DBB9D71D3492"
+          }
+        },
+        {
+          "client_id": "485248112753-u3rrpt223kqsotku61vdg3k1os0t4c9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz3ar8gH_o3Hhfp0baFiyxXQWHwdcX21Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

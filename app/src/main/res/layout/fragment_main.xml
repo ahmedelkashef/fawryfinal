@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.cloudypedia.fawrysurveillanceapp.Fragments.MainFragment">
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/find_by_nearset"
+        android:src="@drawable/findbtn2"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        tools:scaleType="fitCenter"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/find_by_terminalNo"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/find_by_terminalNo"
+        android:src="@drawable/findbyacountno"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        tools:scaleType="fitCenter"
+        android:layout_marginTop="148dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/find_by_nearset"
+        android:layout_alignStart="@+id/find_by_nearset"
+        android:layout_alignRight="@+id/find_by_nearset"
+        android:layout_alignEnd="@+id/find_by_nearset" />
+
+
+</RelativeLayout>
