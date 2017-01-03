@@ -3,6 +3,7 @@ package com.example.cloudypedia.fawrysurveillanceapp.Activites;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.FetchLocationTask;
 import com.example.cloudypedia.fawrysurveillanceapp.Fragments.MainFragment;
 import com.example.cloudypedia.fawrysurveillanceapp.R;

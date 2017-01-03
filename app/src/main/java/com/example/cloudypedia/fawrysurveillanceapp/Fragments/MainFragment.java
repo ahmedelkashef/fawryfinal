@@ -1,12 +1,16 @@
 package com.example.cloudypedia.fawrysurveillanceapp.Fragments;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,8 @@ import com.example.cloudypedia.fawrysurveillanceapp.Activites.MapsActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.AdressDialog;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
+import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
+import com.example.cloudypedia.fawrysurveillanceapp.Controller;
 import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.FetchLocationTask;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 
@@ -31,7 +37,12 @@ public class MainFragment extends Fragment {
     ImageButton searchByTerminalId;
     ImageButton searchByNearset;
     ProgressDialog progressDialog;
-
+    protected String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.CAMERA};
+    private static final int REQUEST_CODE_PERMISSION = 4;
+    Report report;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -40,9 +51,22 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkPermissionGranted();
+      /*  Bundle extras =this.getActivity().getIntent().getExtras();
+        report = extras.getParcelable("sales");*/
+
 
     }
+    protected void checkPermissionGranted(){
 
+        for(int i = 0;i < permissions.length;i++){
+            if(ActivityCompat.checkSelfPermission(getActivity(), permissions[i]) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_CODE_PERMISSION);
+                break;
+            }
+        }
+
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -88,7 +112,8 @@ public class MainFragment extends Fragment {
 
                     else if (clickedButton == searchByNearset)
                     {
-                        Intent intent = new Intent(getActivity() , MapsActivity.class);
+
+                      /*  Intent intent = new Intent(getActivity() , MapsActivity.class);
 
                         ArrayList<Merchant> merchants = fillMerchantData();
 
@@ -96,7 +121,13 @@ public class MainFragment extends Fragment {
                         b.putParcelableArrayList("merchants",merchants);
                         intent.putExtras(b);
 
-                        startActivity(intent);
+                        startActivity(intent);*/
+                        progressDialog = ProgressDialog.show(getActivity(), "" ,"جارى التحميل, انتظر من فضلك...", true);
+                        Controller controller = new Controller(getActivity(), progressDialog);
+
+
+                         Location location  =  gpsHandller.getLocation();
+                        controller.getBranchesByNearest(Double.toString(location.getLatitude()),Double.toString(location.getLongitude()));
                     }
                 }
                 else if(!gpsHandller.isGPSEnabled())
@@ -120,7 +151,6 @@ public class MainFragment extends Fragment {
 
         return merchants ;
 
-
     }
   public void Initialize_Dialog(int message , int title)
   {
@@ -132,4 +162,5 @@ public class MainFragment extends Fragment {
       dialog.show();
 
   }
+
 }

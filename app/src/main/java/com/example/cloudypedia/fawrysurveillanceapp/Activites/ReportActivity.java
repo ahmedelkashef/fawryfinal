@@ -1,6 +1,8 @@
 package com.example.cloudypedia.fawrysurveillanceapp.Activites;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,6 +18,8 @@ import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.Date;
 
@@ -32,17 +36,40 @@ public class ReportActivity extends AppCompatActivity {
     TextView date;
     Button range;
     Report report;
+    Report sales;
     private  double Range;
     Button  reportincdinet;
     Location location;
+    Button BarcodeBtn;
+    String barcosdetxt ;
+    Barcode barcode;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameKey";
+    public static final String Id = "IdKey";
+    public static final String Email = "emailKey";
+    SharedPreferences sharedpreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reportlayout);
 
+        if (savedInstanceState == null ) {
+            barcosdetxt = "";
+
+        } else {
+           barcosdetxt = savedInstanceState.getString("barcodetxt");
+        }
+
+
+
         Intialize_view();
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("barcodetxt", barcosdetxt);
+        super.onSaveInstanceState(outState);
+    }
     void Intialize_view()
     {
         Intialize_data();
@@ -67,7 +94,7 @@ public class ReportActivity extends AppCompatActivity {
          salesEmail.setText( "Sales Email : "+report.getSalesEmail());
 
         terminalID = (TextView) findViewById(R.id.TerminalID);
-        terminalID.setText( "Terminal ID : "+report.getTerminalID());
+        terminalID.setText( " Barcode Value : " + barcosdetxt);
 
         date = (TextView) findViewById(R.id.date_txt);
         date.setText("Date : " + new Date().toString());
@@ -92,13 +119,46 @@ public class ReportActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        BarcodeBtn = (Button) findViewById(R.id.barcode_btn);
+        BarcodeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent (getApplicationContext() , ScanBarcodeActivity.class);
+                startActivityForResult(intent,0);
+            }
+        });
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        onBackPressed();
+
+        //onBackPressed();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 0 )
+        {
+        if (resultCode == CommonStatusCodes.SUCCESS) {
+            if (data != null) {
+                Barcode barcode = data.getParcelableExtra("barcode");
+                barcosdetxt =   barcode.displayValue;
+                terminalID.setText("Barcode Value : " + barcosdetxt);
+            }
+            else {
+                barcosdetxt ="No Barcode found ";
+                terminalID.setText(barcosdetxt);
+            }
+        }
+        }
+        else
+        {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
     }
 
     void Intialize_data()
@@ -108,18 +168,22 @@ public class ReportActivity extends AppCompatActivity {
         location = gpsHandller.getLocation();
         Bundle extras = getIntent().getExtras();
         Merchant current_merchant = extras.getParcelable("merchant");
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+      //  report = extras.getParcelable("sales");
 
         Range = extras.getDouble("distance");
 
         report .setName(current_merchant.getName());
         report.setLocation( Double.toString(current_merchant.getLatitude()) + " , "+ Double.toString(current_merchant.getLongitude()));
         report.setGISLocation(Double.toString(location.getLatitude()) + " , " + Double.toString(location.getLongitude()));
-        report.setMerchantID("12345");
+        report.setMerchantID(report.getTerminalID());
         report.setRange(Double.toString(Range) + " meters");
-        report.setSalesID("123456");
-        report.setSalesName("kashef");
-        report.setSalesEmail("kashef@gmail.com");
-        report.setTerminalID(current_merchant.getTerminalID());
+
+        report.setSalesID(sharedpreferences.getString(Id,""));
+        report.setSalesName(sharedpreferences.getString(Name,""));
+        report.setSalesEmail(sharedpreferences.getString(Email,""));
+        //report.setTerminalID();
 
     }
 

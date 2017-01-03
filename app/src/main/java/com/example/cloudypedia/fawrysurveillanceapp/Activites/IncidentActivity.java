@@ -70,8 +70,9 @@ public class IncidentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                try{
-                   JSONObject jsonObject = setJsonObject();
-                   AppConstants.test(getApplicationContext(),imgbitmap,new Date().getTime(),location.getLongitude(),location.getLatitude() , jsonObject.toString());
+                  // JSONObject jsonObject = setJsonObject();
+                   AppConstants.test(getApplicationContext(),imgbitmap,new Date().getTime(),location.getLongitude(),location.getLatitude(),report.getName().toString());
+
                    Toast.makeText(getApplicationContext()," Data Uploaded Successfully",Toast.LENGTH_SHORT).show();
                    onBackPressed();
 
@@ -90,8 +91,8 @@ public class IncidentActivity extends AppCompatActivity {
         try {
             jsonObject.put("terminalId", report.getTerminalID());
             jsonObject.put("range", report.getRange());
-            jsonObject.put("Incident Type" , spinner.getSelectedItem().toString());
-            jsonObject.put("Incident Comment" , comment.getText());
+            jsonObject.put("IncidentType" , spinner.getSelectedItem().toString());
+            jsonObject.put("IncidentComment" , comment.getText());
         } catch (JSONException e) {
             e.printStackTrace();
         }

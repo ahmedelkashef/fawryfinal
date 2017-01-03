@@ -4,7 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import java.io.ByteArrayOutputStream;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 
 /**
  * Application constants.
@@ -16,7 +22,7 @@ public class AppConstants {
      *
      * @see <a href="https://developers.google.com/console">https://developers.google.com/console</a>
      */
-    public static final String SERVER_CLIENT_ID = "584666349039-hapvscpag4083e3vnai97a1on2m60cjm.apps.googleusercontent.com";
+    public static final String SERVER_CLIENT_ID = "485248112753-326vpgvg5kjvtvfcevnmpck12lltrd3m.apps.googleusercontent.com";
 
     /**
      * app url
@@ -54,7 +60,7 @@ public class AppConstants {
     public static final String COMPANY_LOGO_FILE_NAME = "companyLogo.png";
     public static final int LOCATION_ACCURACY = 100; //meters
 
-    public static void  test(Context context, final Bitmap mBitmapToSave, long timeInMillis, double longitude, double latitude , String customfield){
+    public static void test(Context context, final Bitmap mBitmapToSave, long timeInMillis, double longitude, double latitude , String userName){
         byte[] byteArray = null;
         if (mBitmapToSave != null) {
             ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
@@ -67,13 +73,25 @@ public class AppConstants {
         locationData.put("latitude", latitude);
         locationData.put("longitude", longitude);
         locationData.put("status", "IN"/*String.format("%s (%s)", status, place)*/);
-        locationData.put("user", "Kashef");
+        locationData.put("user", userName);
         locationData.put("email", "mohaned@fawry-retail.com");
         //locationData.put("imageID", "canceled");
         locationData.put("byteArrayImage", byteArray);
         locationData.put("date", timeInMillis);
-        locationData.put("custom field" , customfield);
+        //locationData.put("customfield" , customfield);
 
         SyncService.startActionUploadData(context, locationData);
+    }
+    public static void initSecuredConnection() throws NoSuchAlgorithmException, KeyManagementException {
+        SSLContext sslcontext = SSLContext.getInstance("TLSv1");
+
+        sslcontext.init(null,
+                null,
+                null);
+        SSLSocketFactory NoSSLv3Factory = new NoSSLv3SocketFactory(sslcontext.getSocketFactory());
+
+        HttpsURLConnection.setDefaultSSLSocketFactory(NoSSLv3Factory);
+
+        HttpsURLConnection.setDefaultSSLSocketFactory(NoSSLv3Factory);
     }
 }

@@ -39,11 +39,9 @@ public class AdressDialog extends DialogFragment {
                 .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Log.e("Fawry", "In positiveButton");
+
                         EditText adressEditText = (EditText)view.findViewById(R.id.et_adress);
-                        Log.e("Fawry", "adressEditText: " + adressEditText);
                         String adress = adressEditText.getText().toString();
-                        Log.e("Fawry", "adress: " + adress);
                         dialog.dismiss();
                         ProgressDialog progressDialog;
                         progressDialog = ProgressDialog.show(AdressDialog.this.getActivity(), "" ,"جارى التحميل, انتظر من فضلك...", true);

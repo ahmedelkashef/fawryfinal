@@ -13,6 +13,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "485248112753-326vpgvg5kjvtvfcevnmpck12lltrd3m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cloudypedia.fawrysurveillanceapp",
+            "certificate_hash": "DF99F2C01940A92DA7FE239E15257E585FBC7653"
+          }
+        },
+        {
           "client_id": "485248112753-flpdoa1d3m781t5de0h7nd3g7gi5qvd8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

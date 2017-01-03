@@ -22,14 +22,15 @@ public class Controller {
         this.context = context;
     }
 
-    public void getBranchesByNearest(String lat, String long_, String type) {
-
-
-    }
-
-    public void findBranchByTerminalNo(String terminalNo) {
+    public void getBranchesByNearest(String lat, String long_) {
 
         FetchLocationTask fetchLocationTask = new FetchLocationTask(context, progressDialog);
-        fetchLocationTask.execute(terminalNo);
+        fetchLocationTask.execute("nearest" , lat , long_);
+    }
+
+    public void findBranchByTerminalNo(String terminalNo ) {
+
+        FetchLocationTask fetchLocationTask = new FetchLocationTask(context, progressDialog);
+        fetchLocationTask.execute("terminalId",terminalNo );
     }
 }

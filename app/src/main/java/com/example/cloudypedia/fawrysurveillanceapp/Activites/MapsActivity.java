@@ -32,12 +32,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
    private ArrayList<Merchant>  merchants;
 
     GPSHandller gpsHandller;
-    protected String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_NETWORK_STATE};
+    protected String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+    Manifest.permission.ACCESS_COARSE_LOCATION};
     private static final int REQUEST_CODE_PERMISSION = 4;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onStart() {
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
 
         Bundle extras = getIntent().getExtras();
@@ -51,15 +58,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_PERMISSION);
         }
-
         mMap.setMyLocationEnabled(true);
 
         gpsHandller = new GPSHandller(this);
@@ -76,7 +83,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             marker =  mMap.addMarker(new MarkerOptions().position(new LatLng(merchants.get(i).getLatitude(), merchants.get(i).getLongitude())).title(merchants.get(i).getName()));
             builder.include(marker.getPosition());
             marker.setTag(merchants.get(i));
-
         }
         builder.include(currentMarker.getPosition());
         final   LatLngBounds bounds = builder.build();
@@ -84,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
             }
         });
 
