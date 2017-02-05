@@ -11,8 +11,9 @@ import android.os.Parcelable;
 public class Report implements Parcelable {
 
     private String name ;
+    private String reportId;
     private String location;
-    private String  merchantID;
+    private String  terminalSerial;
     private String GISLocation;
     private String range;
     private String salesName;
@@ -20,11 +21,20 @@ public class Report implements Parcelable {
     private String salesID;
     private Bitmap reportImage;
     private String terminalID;
+    private Long reportDate;
+    private String comment;
+
+
+
+    private String Status;
+
+ 
+
 
     protected Report(Parcel in) {
         name = in.readString();
         location = in.readString();
-        merchantID = in.readString();
+        terminalSerial = in.readString();
         GISLocation = in.readString();
         range = in.readString();
         salesName = in.readString();
@@ -33,7 +43,13 @@ public class Report implements Parcelable {
         reportImage = in.readParcelable(Bitmap.class.getClassLoader());
         terminalID = in.readString();
     }
+    public String getReportId() {
+        return reportId;
+    }
 
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
+    }
     public Report() {
     }
 
@@ -58,11 +74,11 @@ public class Report implements Parcelable {
     }
 
     public String getMerchantID() {
-        return merchantID;
+        return terminalSerial;
     }
 
     public void setMerchantID(String merchantID) {
-        this.merchantID = merchantID;
+        this.terminalSerial = merchantID;
     }
 
     public String getRange() {
@@ -124,6 +140,29 @@ public class Report implements Parcelable {
     public Bitmap getReportImage() {
         return reportImage;
     }
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Long getReportDate() {
+        return reportDate;
+    }
+
+    public void setReportDate(Long reportDate) {
+        this.reportDate = reportDate;
+    }
 
     public void setReportImage(Bitmap reportImage) {
         this.reportImage = reportImage;
@@ -138,7 +177,7 @@ public class Report implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(location);
-        parcel.writeString(merchantID);
+        parcel.writeString(terminalSerial);
         parcel.writeString(GISLocation);
         parcel.writeString(range);
         parcel.writeString(salesName);

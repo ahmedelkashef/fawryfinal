@@ -92,7 +92,7 @@ public class IncidentActivity extends AppCompatActivity {
             }
         })*/;
     }
-    public JSONObject setJsonObject()
+/*    public JSONObject setJsonObject()
     {
         JSONObject jsonObject = new JSONObject();
 
@@ -107,7 +107,7 @@ public class IncidentActivity extends AppCompatActivity {
 
 
         return jsonObject;
-    }
+    }*/
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 

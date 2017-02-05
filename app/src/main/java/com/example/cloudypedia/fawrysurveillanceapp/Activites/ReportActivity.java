@@ -32,17 +32,18 @@ import java.util.Date;
 
 public  class ReportActivity extends AppCompatActivity {
 
-    TextView gisLocation, locationtxt, name, merchantId, salesId, salesName, salesEmail, terminalID, date;
-    Button range, BarcodeBtn, save, takephoto;
-    Report report;
-    private double Range;
-    Location location;
-    String barcodetxt, status;
-    ImageView imageView;
-    Bitmap imgbitmap;
-    EditText comment;
-    final int CAMERA_REQUEST = 3;
-    Spinner spinner;
+  public   TextView gisLocation, locationtxt, name, merchantId, salesId, salesName, salesEmail, terminalID, date;
+    public  Button range, BarcodeBtn, save, takephoto;
+    public   Report report;
+    public double Range;
+    public   Location location;
+    public String barcodetxt ;
+    private ImageView imageView;
+    public Bitmap imgbitmap;
+    public EditText comment;
+    private final int CAMERA_REQUEST = 3;
+    public Spinner spinner;
+    public JSONObject jsonObject;
 
 
     @Override
@@ -146,19 +147,22 @@ public  class ReportActivity extends AppCompatActivity {
 
                         newDialog.range = "المسافة بعيدة";
                     }
+                    jsonObject = setJsonObject();
+                    newDialog.reportActivity = ReportActivity.this;
                     newDialog.show(getFragmentManager(), "انذار");
                 } else {
                     checkStatus();
                     try {
-                        JSONObject jsonObject = setJsonObject();
+                        report.setComment( comment.getText().toString());
+                        jsonObject = setJsonObject();
                         Utility.uploadReport(getApplicationContext(),
                                 imgbitmap,
                                 new Date().getTime(),
                                 location.getLongitude(),
                                 location.getLatitude(),
                                 report.getName(),
-                                status ,
-                                comment.getText().toString(),
+                                report.getStatus() ,
+                                report.getComment() ,
                                 jsonObject.toString());
 
                         //Toast.makeText(getApplicationContext(), " Data Uploaded Successfully", Toast.LENGTH_SHORT).show();
@@ -254,6 +258,8 @@ public  class ReportActivity extends AppCompatActivity {
         report.setSalesName(Utility.getPreferredName(this));
         report.setSalesEmail(Utility.getPreferredEmail(this));
         //report.setTerminalID();
+        report.setStatus( "UnSuccsessful");
+        report.setComment(comment.getText().toString());
 
     }
 
@@ -285,13 +291,13 @@ public  class ReportActivity extends AppCompatActivity {
     public void checkStatus()
     {
         if(Range <= 100.0 && report.getMerchantID() == barcodetxt)
-            status = "Succsessful";
+            report.setStatus("Succsessful") ;
         else if (Range > 100.0 )
-            status = "UnSuccsessful (Range Exceed 100 Meter)";
+            report.setStatus("UnSuccsessful (Range Exceed 100 Meter)");
         else if ( report.getMerchantID() != barcodetxt)
-            status = "UnSuccsessful (Serial Doesn't Match)";
+            report.setStatus( "UnSuccsessful (Serial Doesn't Match)");
         else
-            status = "UnSuccsessful";
+            report.setStatus("UnSuccsessful");
 
 
     }

@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cloudypedia.fawrysurveillanceapp.Activites.ReportActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.Activites.VistsActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
@@ -37,6 +38,7 @@ import java.util.Date;
  public class Alert_Dialog extends DialogFragment {
     public String barcode="" , photo="" , range="" ;
     private TextView alerttxt ;
+   public   ReportActivity reportActivity;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -66,6 +68,17 @@ import java.util.Date;
                 .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+
+                        Utility.uploadReport(reportActivity,
+                                reportActivity.imgbitmap,
+                                new Date().getTime(),
+                                reportActivity.location.getLongitude(),
+                                reportActivity.location.getLatitude(),
+                                reportActivity.report.getName(),
+                                reportActivity.report.getStatus() ,
+                                reportActivity.report.getComment(),
+                                reportActivity.jsonObject.toString());
+
                         Intent intent = new Intent( getActivity(), VistsActivity.class);
                         startActivity(intent);
 

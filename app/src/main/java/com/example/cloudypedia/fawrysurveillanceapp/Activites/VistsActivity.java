@@ -14,11 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Rowcontent;
+import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.FetchVistsTask;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class VistsActivity extends AppCompatActivity {
@@ -31,12 +33,15 @@ public class VistsActivity extends AppCompatActivity {
     TableLayout tableLayout;
     TableRow tableRow;
     List<Rowcontent> rowcontent;
+    Date cuurentdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vists);
 
+        FetchVistsTask fetchVistsTask = new FetchVistsTask();
+        fetchVistsTask.execute( Long.toString(dateTime.getTimeInMillis()) , "kashef@cloudypedia.com");
         IntializeViews();
         bulidTable();
 
