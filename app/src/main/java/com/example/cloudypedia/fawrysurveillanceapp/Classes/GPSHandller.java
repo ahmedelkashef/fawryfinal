@@ -45,6 +45,12 @@ public class GPSHandller implements LocationListener {
         this.mContext = context;
         getLocation();
     }
+    public GPSHandller() {
+        longitude = 0.0 ;
+        latitude = 0.0;
+        getLocation();
+    }
+
 
     public double getLatitude() {
         return latitude;

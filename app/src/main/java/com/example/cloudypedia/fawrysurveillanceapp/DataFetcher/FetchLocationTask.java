@@ -12,9 +12,7 @@ import android.widget.Toast;
 import com.example.cloudypedia.fawrysurveillanceapp.Activites.MapsActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.AppConstants;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,13 +28,13 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 
 public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
 
     private ProgressDialog progressDialog;
     Context context;
+    double currentLat , currentLong;
 
     public FetchLocationTask(Context context, ProgressDialog progressDialog) {
         this.context = context;
@@ -52,11 +50,12 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
 
         String result = LocationJsonStr;
         JSONArray jsonArray = new JSONArray(result);
-        Merchant[] merchants = new Merchant[jsonArray.length()];
+        Merchant[] merchants = new Merchant[jsonArray.length()+1];
 
+        merchants[0] = new Merchant(currentLat,currentLong,"My Location");
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+        for (int i = 1; i < merchants.length  ; i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(i-1);
 
             Merchant m = new Merchant();
             m.setLatitude(Double.parseDouble(jsonObject.get("latitude").toString()));
@@ -65,7 +64,14 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
 
             if (!jsonObject.get("indexedCustomFields").equals(null)) {
                 JSONObject indexedCustomFields = (JSONObject) jsonObject.get("indexedCustomFields");
-                m.setTerminalID(indexedCustomFields.get("TerminalFawryID").toString());
+                m.setTerminalID(indexedCustomFields.get("TerminalSerial").toString());
+            }
+            if (!jsonObject.get("unIndexedCustomFields").equals(null)) {
+                JSONObject unindexedCustomFields = (JSONObject) jsonObject.get("unIndexedCustomFields");
+                m.setAddress(unindexedCustomFields.get("StreeName").toString() + ", " +
+                        unindexedCustomFields.get("AreaName").toString() );
+                m.setPhone(unindexedCustomFields.get("MobileNum").toString());
+                m.setMerchantType(unindexedCustomFields.get("MerchantTypeName").toString());
             }
             merchants[i] = m;
 
@@ -81,7 +87,8 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
         BufferedReader reader = null;
         // Will contain the raw JSON response as a string.
         String MoviesJsonStr = null;
-
+        currentLat = Double.parseDouble(params[1]);
+        currentLong = Double.parseDouble(params[2]);
 
         try {
             AppConstants.initSecuredConnection();
@@ -105,7 +112,6 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
 
                 BuiltUri = Uri.parse(BASE_URL + CONTROLLER_URL).buildUpon().appendQueryParameter(PARMETER_URL[0], params[1]).appendQueryParameter(PARMETER_URL[1], params[2])
                         .build();
-
             }
             URL url = new URL(BuiltUri.toString());
             Log.v("uri=", BuiltUri.toString());
@@ -159,16 +165,26 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
         return null;
     }
 
+
+
     @Override
     protected void onPostExecute(Merchant[] Merchants) {
 
 
         if (Merchants == null) {
-            Toast.makeText(context, "Error in Fetching Data", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
+                Toast.makeText(context, "Error in Fetching Data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
         } else {
+            if(Merchants.length == 0)
+            {
+                Toast.makeText(context, "خطأ في رقم الماكينة .. من فضلك تأكد من الرقم.", Toast.LENGTH_SHORT).show();
+                Utility.dismissProgressDialog();
+            }
             ArrayList<Merchant> merchants = new ArrayList<Merchant>(Arrays.asList(Merchants));
+
             Intent MapIntent = new Intent(context, MapsActivity.class);
+            MapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             Bundle b = new Bundle();
             b.putParcelableArrayList("merchants", merchants);
             MapIntent.putExtras(b);

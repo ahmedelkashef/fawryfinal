@@ -56,7 +56,6 @@
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:onClick="onHomeClick"
             android:text="Home"
             android:textSize="20dp"
             android:background="#FFF"
@@ -65,8 +64,6 @@
             android:layout_marginBottom="5dp"
             android:src="@drawable/home"
             android:scaleType="fitCenter"
-
-
             android:layout_gravity="center|right"
             android:layout_marginRight="10dp" />
 

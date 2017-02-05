@@ -6,7 +6,7 @@
     android:background="@color/blue_grey_700"
     android:orientation="vertical"
     android:weightSum="4"
-    tools:context=".Activites.SiginInActivity">
+    tools:context=".Activites.SignInActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+
             android:text="@string/title_text"
             android:gravity="center"
             android:textColor="@android:color/white"
@@ -100,12 +101,14 @@
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
-                android:id="@+id/disconnect_button"
+                android:id="@+id/go_to_MainActivity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/disconnect"
+                android:text="@string/go_to_activity"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+
         </LinearLayout>
 
     </RelativeLayout>

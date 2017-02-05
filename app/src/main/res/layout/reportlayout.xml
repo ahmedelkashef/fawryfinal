@@ -5,160 +5,276 @@
     android:layout_height="match_parent"
     android:background="@drawable/bgapp"
     android:weightSum="1"
-    android:baselineAligned="false"
     android:orientation="vertical">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+        <TextView
+            android:text="تقرير زيارة"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif"
+            android:textColor="@android:color/holo_orange_light"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <TextView
-        android:text="تقرير زيارة"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textSize="30sp"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif"
-        android:textColor="@android:color/holo_orange_light" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/date_txt"
-        android:hint="Date"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/name_txt"
-        android:hint="Name"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/location_txt"
-        android:hint="Location"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/MerchantID_txt"
-        android:hint="Merchant ID "
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/GISLocation_txt"
-        android:hint="GIS Location"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Range"
-        android:id="@+id/toggleButton"
-        android:background="@android:color/holo_green_dark" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/salesName_txt"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:hint="Sales Name"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_txt"
+            android:hint="Date"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_txt"
+            android:hint="Name"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/salesEmail_txt"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:hint="Email"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/salesId_txt"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:hint="ID"
-        android:layout_weight="0.05"
-        android:textColor="@android:color/holo_orange_light"/>
-    
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/holo_orange_light" />
-    
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-       android:text="Terminal"
-        android:textSize="24sp"
-        android:textColor="@android:color/holo_orange_light"
-        android:layout_weight="0.05"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/barcode_btn"
-        android:text="Scan Barcode"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/TerminalID"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:layout_weight="0.05"
-        android:text="Barcode Value : "
-        android:textColor="@android:color/holo_orange_light"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/MerchantID_txt"
+            android:hint="Merchant ID "
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_txt"
+            android:hint="Location"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
 
 
-    <Button
-        android:text="Save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Save_btn"
-        android:layout_weight="0.05"
-        android:visibility="invisible"/>
-
-    <Button
-        android:text="Report Incident"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Report_btn"
-        android:layout_weight="0.05"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/GISLocation_txt"
+            android:hint="GIS Location"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
 </LinearLayout>
-</ScrollView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Range"
+            android:id="@+id/toggleButton"
+            android:background="@android:color/holo_green_dark" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/holo_orange_light" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/salesName_txt"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:hint="Sales Name"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/salesEmail_txt"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:hint="Email"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/salesId_txt"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:hint="ID"
+            android:layout_weight="0.05"
+            android:textColor="@android:color/holo_orange_light"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/holo_orange_light" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="5dp"
+           android:text="الماكينة"
+            android:textSize="24sp"
+            android:textColor="@android:color/holo_orange_light"
+            android:layout_weight="0.05"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/barcode_btn"
+            android:text="افحص الباركود"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TerminalID"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:layout_weight="0.05"
+            android:text="Barcode Value : "
+            android:textColor="@android:color/holo_orange_light"
+            />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="8dp"
+            android:background="@android:color/holo_orange_light" />
+    <!--    <Button
+            android:text="Save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Save_btn"
+            android:layout_weight="0.05"
+            android:visibility="invisible"/>-->
+
+        <!--<Button
+            android:text="ابلغ عن حادثة"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Report_btn"
+            android:layout_weight="0.05"/>-->
+<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="508dp"
+            android:background="@drawable/bgapp"
+            android:weightSum="1">
+
+  <!--          <TextView
+                android:text="حادثة"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textColor="@android:color/holo_orange_light"
+                android:layout_marginBottom="16dp"/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+                <Spinner
+                    android:id="@+id/type_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/incident_type"
+                    android:prompt="@string/incident_prompt"
+                    android:theme="@style/mySpinnerItemStyle"
+                    android:layout_weight="1.92" />
+                <TextView
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:text="نوع الزيارة"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@android:color/holo_orange_light" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:layout_marginBottom="16dp">
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="تعليق"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textColorHint="@android:color/holo_orange_light"
+                    android:id="@+id/comment_txt"
+                    android:nextFocusUp="@id/comment_txt"
+                    android:nextFocusLeft="@id/comment_txt"/> />
+
+            </LinearLayout>
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="10dp"
+
+                android:layout_gravity="center"
+                android:id="@+id/captured_img"
+                android:layout_weight="0.10" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/photo_btn"
+                android:text="التقط صورة"
+                android:layout_gravity="center"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="حفظ الزيارة"
+                android:id="@+id/Save_Incident"
+                android:visibility="visible"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

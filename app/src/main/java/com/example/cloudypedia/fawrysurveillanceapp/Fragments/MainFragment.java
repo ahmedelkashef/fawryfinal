@@ -5,7 +5,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -14,16 +13,14 @@ import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.example.cloudypedia.fawrysurveillanceapp.Activites.MapsActivity;
-import com.example.cloudypedia.fawrysurveillanceapp.AdressDialog;
+import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.AdressDialog;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.Controller;
-import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.FetchLocationTask;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 
 import java.util.ArrayList;
@@ -122,12 +119,16 @@ public class MainFragment extends Fragment {
                         intent.putExtras(b);
 
                         startActivity(intent);*/
-                        progressDialog = ProgressDialog.show(getActivity(), "" ,"جارى التحميل, انتظر من فضلك...", true);
-                        Controller controller = new Controller(getActivity(), progressDialog);
 
 
                          Location location  =  gpsHandller.getLocation();
-                        controller.getBranchesByNearest(Double.toString(location.getLatitude()),Double.toString(location.getLongitude()));
+                        if(location != null) {
+                            progressDialog = ProgressDialog.show(getActivity(), "" ,"جارى التحميل, انتظر من فضلك...", true);
+
+                            Controller controller = new Controller(getActivity(), progressDialog);
+                            controller.getBranchesByNearest(Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
+                        }else
+                            Toast.makeText(getActivity(),"خطأ في التواصل .. من فضلك حاول مرة اخري",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else if(!gpsHandller.isGPSEnabled())

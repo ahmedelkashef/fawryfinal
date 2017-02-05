@@ -7,7 +7,7 @@
     android:background="@drawable/bgapp">
 
     <TextView
-        android:text="Incident"
+        android:text="حادثة"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
@@ -16,45 +16,45 @@
         android:textColor="@android:color/holo_orange_light"
         android:layout_marginBottom="16dp"/>
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginBottom="16dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Incident Type"
-        android:layout_marginRight="32dp"
-        android:textColor="@android:color/holo_orange_light" />
-
     <Spinner
         android:id="@+id/type_spinner"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:entries="@array/incident_type"
         android:prompt="@string/incident_prompt"
         style="@style/mySpinnerItemStyle"
 
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="نوع الحادثة"
+        android:layout_marginRight="16dp"
+        android:textColor="@android:color/holo_orange_light" />
+
+
 
 </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comment :"
-            android:layout_marginRight="32dp"
-            android:textColor="@android:color/holo_orange_light" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="تعليق"
+            android:layout_marginRight="16dp"
+
+            android:textColor="@android:color/holo_orange_light"
+            android:textColorHint="@android:color/holo_orange_light"
             android:id="@+id/comment_txt"/>
 
     </LinearLayout>
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/photo_btn"
-        android:text="TAKE PHOTO"
+        android:text="التقط صورة"
         android:layout_gravity="center"
         />
 
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Save"
+        android:text="احفظ"
         android:id="@+id/Save_Incident"
         android:visibility="invisible"/>
 

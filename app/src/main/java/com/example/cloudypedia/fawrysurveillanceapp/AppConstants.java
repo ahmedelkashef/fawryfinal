@@ -22,13 +22,17 @@ public class AppConstants {
      *
      * @see <a href="https://developers.google.com/console">https://developers.google.com/console</a>
      */
-    public static final String SERVER_CLIENT_ID = "485248112753-326vpgvg5kjvtvfcevnmpck12lltrd3m.apps.googleusercontent.com";
+    public static final String SERVER_CLIENT_ID = "584666349039-hapvscpag4083e3vnai97a1on2m60cjm.apps.googleusercontent.com";
 
     /**
      * app url
      */
     public static final String BASE_HOST_URL = "https://4-dot-cloudypedia-abc.appspot.com/a";//"https://cloudypedia-abc.appspot.com/a";//
-
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameKey";
+    public static final String Id = "IdKey";
+    public static final String Email = "emailKey";
+    public static final String IdToken = "idTokenKey";
     /**
      * get setting url
      */
@@ -60,28 +64,7 @@ public class AppConstants {
     public static final String COMPANY_LOGO_FILE_NAME = "companyLogo.png";
     public static final int LOCATION_ACCURACY = 100; //meters
 
-    public static void test(Context context, final Bitmap mBitmapToSave, long timeInMillis, double longitude, double latitude , String userName){
-        byte[] byteArray = null;
-        if (mBitmapToSave != null) {
-            ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
-            mBitmapToSave.compress(Bitmap.CompressFormat.PNG, 100, bitmapStream);
-            byteArray = bitmapStream.toByteArray();
-        }
-        final HashMap<String, Object> locationData = new HashMap<>();
 
-
-        locationData.put("latitude", latitude);
-        locationData.put("longitude", longitude);
-        locationData.put("status", "IN"/*String.format("%s (%s)", status, place)*/);
-        locationData.put("user", userName);
-        locationData.put("email", "mohaned@fawry-retail.com");
-        //locationData.put("imageID", "canceled");
-        locationData.put("byteArrayImage", byteArray);
-        locationData.put("date", timeInMillis);
-        //locationData.put("customfield" , customfield);
-
-        SyncService.startActionUploadData(context, locationData);
-    }
     public static void initSecuredConnection() throws NoSuchAlgorithmException, KeyManagementException {
         SSLContext sslcontext = SSLContext.getInstance("TLSv1");
 

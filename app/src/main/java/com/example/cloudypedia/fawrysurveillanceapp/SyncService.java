@@ -88,7 +88,7 @@ public class SyncService extends IntentService{
     }
 
     private void handleActionUploadData(HashMap<String,Object> locationData) {
-
+        //locationData.put("email" , "kashef@eccooutsourcing.com");
         uploadData(locationData);
     }
 
@@ -150,8 +150,8 @@ public class SyncService extends IntentService{
                 responseString += line;
             }
             Log.e(TAG, responseString);
-            makeToast(responseString);
-
+            showMessage(responseString);
+            //Toast.makeText( getApplicationContext() , responseString, Toast.LENGTH_SHORT).show();
         } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
             Log.e(TAG, "uploadData: " + e.getMessage());
             //make notification
@@ -192,9 +192,11 @@ public class SyncService extends IntentService{
             // http://openweathermap.org/API#forecast
             final String BASE_URL = AppConstants.CREATE_UPLOAD_URL;
 
+            String userIdToken = Utility.getStringPreference(this, Utility.PREFS_USER_ID_TOKEN);
+
 
             Uri.Builder builder = Uri.parse(BASE_URL).buildUpon()
-                    .appendQueryParameter("email", "mohaned@fawry-retail.com");
+                    .appendQueryParameter(Utility.PREFS_USER_ID_TOKEN, userIdToken);
             Uri builtUri =builder.build();
 
             URL url = new URL(builtUri.toString());

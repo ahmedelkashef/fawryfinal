@@ -7,12 +7,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cloudypedia.fawrysurveillanceapp.AppConstants;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
+import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.LoadSettingTask;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -28,7 +32,7 @@ import com.google.android.gms.common.api.Status;
  * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
  * profile.
  */
-public class SiginInActivity extends AppCompatActivity implements
+public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
@@ -39,11 +43,8 @@ public class SiginInActivity extends AppCompatActivity implements
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     GoogleSignInOptions gso;
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String Name = "nameKey";
-    public static final String Id = "IdKey";
-    public static final String Email = "emailKey";
-    SharedPreferences sharedpreferences;
+    GoogleSignInAccount acct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +53,24 @@ public class SiginInActivity extends AppCompatActivity implements
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
-        findViewById(R.id.disconnect_button).setOnClickListener(this);
+        findViewById(R.id.go_to_MainActivity).setOnClickListener(this);
+
+        if(Utility.getPreferredEmail(this) != null)
+        {
+            goToMainActivity();
+        }
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+               .requestIdToken(AppConstants.SERVER_CLIENT_ID)
                 .requestEmail()
+               .requestProfile()
+   //     .requestServerAuthCode(AppConstants.SERVER_CLIENT_ID)
                 .build();
         // [END configure_signin]
 
@@ -77,6 +85,7 @@ public class SiginInActivity extends AppCompatActivity implements
 
         // [START customize_button]
         // Set the dimensions of the sign-in button.
+
         SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         // [END customize_button]
@@ -85,9 +94,11 @@ public class SiginInActivity extends AppCompatActivity implements
     @Override
     public void onStart() {
         super.onStart();
+        Utility.dismissProgressDialog();
         if (!mGoogleApiClient.isConnected())
             mGoogleApiClient.connect();
     }
+
 
     // [START onActivityResult]
     @Override
@@ -99,6 +110,7 @@ public class SiginInActivity extends AppCompatActivity implements
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
+
     }
     // [END onActivityResult]
 
@@ -107,24 +119,32 @@ public class SiginInActivity extends AppCompatActivity implements
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
+            boolean firstTime = false;// is first time after sign out
+            if(Utility.getPreferredEmail(this) == null)
+                firstTime = true;
 
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(Name ,acct.getDisplayName());
-            editor.putString(Email , acct.getEmail());
-           editor.putString(Id,acct.getId());
-            editor.commit();
-            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+            acct = result.getSignInAccount();
 
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            updateUI(true);
+            Utility.setPreferredEmail(SignInActivity.this , acct.getEmail() );
+            Utility.setPreferredId(SignInActivity.this , acct.getId());
+            Utility.setPreferredName(SignInActivity.this , acct.getDisplayName());
+            Utility.setPreferredIdToken(SignInActivity.this , acct.getIdToken());
+
+            if(firstTime){
+                LoadSettingTask loadSettingTask = new LoadSettingTask(this);
+                loadSettingTask.execute();
+            }
+            else {
+                Utility.showProgressDialog(getString(R.string.loading) , this);
+                goToMainActivity();
+            }
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
         }
     }
     // [END handleSignInResult]
+
 
     // [START signIn]
     private void signIn() {
@@ -133,13 +153,20 @@ public class SiginInActivity extends AppCompatActivity implements
     }
     // [END signIn]
 
+    public void goToMainActivity(){
+        Intent intent = new Intent(getApplication(),MainActivity.class);
+        startActivity(intent);
+
+        updateUI(true);
+    }
     // [START signOut]
-    private void signOut() {
+   public  void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
                         // [START_EXCLUDE]
+                        Utility.removeAllPreferences(SignInActivity.this);
                         updateUI(false);
                         // [END_EXCLUDE]
                     }
@@ -168,24 +195,9 @@ public class SiginInActivity extends AppCompatActivity implements
         Toast.makeText(getApplicationContext(), connectionResult.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.loading));
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-        }
-    }
-
     private void updateUI(boolean signedIn) {
         if (signedIn) {
+            mStatusTextView.setText(getString(R.string.signed_in_fmt) + Utility.getPreferredName(this));
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
         } else {
@@ -205,8 +217,8 @@ public class SiginInActivity extends AppCompatActivity implements
             case R.id.sign_out_button:
                 signOut();
                 break;
-            case R.id.disconnect_button:
-                revokeAccess();
+            case R.id.go_to_MainActivity:
+                goToMainActivity();
                 break;
         }
     }

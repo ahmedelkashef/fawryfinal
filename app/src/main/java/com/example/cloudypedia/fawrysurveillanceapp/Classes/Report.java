@@ -14,11 +14,12 @@ public class Report implements Parcelable {
     private String location;
     private String  merchantID;
     private String GISLocation;
-    private String range ;
+    private String range;
     private String salesName;
     private String salesEmail;
     private String salesID;
     private Bitmap reportImage;
+    private String terminalID;
 
     protected Report(Parcel in) {
         name = in.readString();
@@ -112,7 +113,6 @@ public class Report implements Parcelable {
         this.location = location;
     }
 
-    private String terminalID;
 
     public String getName() {
         return name;

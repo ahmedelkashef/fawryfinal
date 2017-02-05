@@ -1,16 +1,33 @@
 package com.example.cloudypedia.fawrysurveillanceapp.Activites;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
+import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
+import com.example.cloudypedia.fawrysurveillanceapp.Controller;
+import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.Alert_Dialog;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.example.cloudypedia.fawrysurveillanceapp.Utility;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,16 +37,27 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.barcode.Barcode;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private double longitude, latitude;
+    Location location;
+    LatLng currentLocation;
     Marker marker ;
+    ImageButton homebtn, refreshbtn;
+   // Marker pressedmarker;
+    ProgressDialog progressDialog;
+    Marker currentMarker;
 
-   private ArrayList<Merchant>  merchants;
+    private ArrayList<Merchant>  merchants;
 
     GPSHandller gpsHandller;
     protected String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
@@ -42,20 +70,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onStart();
 
     }
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putDouble("pressedLat", currentMarker.getPosition().latitude);
+        outState.putDouble("pressedLong", currentMarker.getPosition().longitude);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
 
 
         Bundle extras = getIntent().getExtras();
         merchants = extras.getParcelableArrayList("merchants");
+        if(savedInstanceState == null)
+        {
+            currentLocation = new LatLng(merchants.get(0).getLatitude(), merchants.get(0).getLongitude());
+        }
+        else{
+            currentLocation  = new LatLng(savedInstanceState.getDouble("pressedLat"), savedInstanceState.getDouble("pressedLong")) ;
+        }
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        homebtn = (ImageButton) findViewById(R.id.homeButton);
+        refreshbtn = (ImageButton) findViewById(R.id.Refresh);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        homebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        refreshbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog = ProgressDialog.show(MapsActivity.this, "" ,"جارى التحميل, انتظر من فضلك...", true);
+
+                Controller controller = new Controller(MapsActivity.this, progressDialog);
+                controller.getBranchesByNearest(Double.toString(currentMarker.getPosition().latitude),Double.toString(currentMarker.getPosition().longitude));
+
+            }
+        });
     }
 
     @Override
@@ -67,30 +128,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_PERMISSION);
         }
+
         mMap.setMyLocationEnabled(true);
 
-        gpsHandller = new GPSHandller(this);
-        Location location = gpsHandller.getLocation();
+             LatLngBounds.Builder builder = new LatLngBounds.Builder();
+             currentMarker = mMap.addMarker(new MarkerOptions().position(currentLocation).title("My Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+             currentMarker.showInfoWindow();
 
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
-        LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        final Marker currentMarker = mMap.addMarker(new MarkerOptions().position(currentLocation).title("My location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-
-        currentMarker.showInfoWindow();
-        for (int i = 0 ; i<merchants.size() ; i++)
+        for (int i = 1 ; i<merchants.size() ; i++)
         {
-            marker =  mMap.addMarker(new MarkerOptions().position(new LatLng(merchants.get(i).getLatitude(), merchants.get(i).getLongitude())).title(merchants.get(i).getName()));
+            String sinippet = "Address: "+ merchants.get(i).getAddress();
+            marker =  mMap.addMarker(new MarkerOptions().position(new LatLng(merchants.get(i).getLatitude(), merchants.get(i).getLongitude()))
+                    .title(merchants.get(i).getName()).snippet(sinippet));
+
             builder.include(marker.getPosition());
             marker.setTag(merchants.get(i));
         }
+
         builder.include(currentMarker.getPosition());
         final   LatLngBounds bounds = builder.build();
 
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
             }
         });
 
@@ -116,8 +177,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                currentMarker.remove();
+                 currentMarker = mMap.addMarker(new MarkerOptions().position(latLng).title(" My Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+            refreshbtn.setVisibility(View.VISIBLE);
+            }
+        });
         }
 
 
-    }
+    /**
+     * Created by dev3 on 2/5/2017.
+     */
+
+}
 

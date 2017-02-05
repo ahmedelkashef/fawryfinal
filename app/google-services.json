@@ -1,41 +1,51 @@
 {
   "project_info": {
-    "project_number": "485248112753",
-    "project_id": "fawrysurveillanceapp"
+    "project_number": "584666349039",
+    "firebase_url": "https://cloudypedia-abc.firebaseio.com",
+    "project_id": "cloudypedia-abc",
+    "storage_bucket": "cloudypedia-abc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:485248112753:android:811289eeec1e1ac0",
+        "mobilesdk_app_id": "1:584666349039:android:0c6ee67752551ebf",
         "android_client_info": {
-          "package_name": "com.example.cloudypedia.fawrysurveillanceapp"
+          "package_name": "com.adnroid.cloudypedia.attendancelocation"
         }
       },
       "oauth_client": [
         {
-          "client_id": "485248112753-326vpgvg5kjvtvfcevnmpck12lltrd3m.apps.googleusercontent.com",
+          "client_id": "584666349039-4l8nhujjq3b5gdm58acpmiek4ert1e30.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.cloudypedia.fawrysurveillanceapp",
-            "certificate_hash": "DF99F2C01940A92DA7FE239E15257E585FBC7653"
+            "package_name": "com.adnroid.cloudypedia.attendancelocation",
+            "certificate_hash": "6F8FF830BB5EE8910EBDA52AD30AFEA5BF9FF9D6"
           }
         },
         {
-          "client_id": "485248112753-flpdoa1d3m781t5de0h7nd3g7gi5qvd8.apps.googleusercontent.com",
+          "client_id": "584666349039-u51jb5s5khhgkcsm0lbl789gmvoe0kse.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.cloudypedia.fawrysurveillanceapp",
-            "certificate_hash": "785DB149BEEACCF42890637C69A7DBB9D71D3492"
+            "package_name": "com.adnroid.cloudypedia.attendancelocation",
+            "certificate_hash": "5504D386A1517A800AA91669C2A1214E456D24A1"
           }
         },
         {
-          "client_id": "485248112753-u3rrpt223kqsotku61vdg3k1os0t4c9g.apps.googleusercontent.com",
+          "client_id": "584666349039-b4qibs4a56r2p0sjmmi4gd2524fvo3au.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "584666349039-68jnnnpuuc0dq6eaiaj5mg0kj665812n.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "584666349039-hapvscpag4083e3vnai97a1on2m60cjm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDz3ar8gH_o3Hhfp0baFiyxXQWHwdcX21Y"
+          "current_key": "AIzaSyAMv02IjHmIQQcYy5uI4W3eYascFevU-FE"
         }
       ],
       "services": {
@@ -43,11 +53,68 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584666349039-b4qibs4a56r2p0sjmmi4gd2524fvo3au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584666349039:android:811289eeec1e1ac0",
+        "android_client_info": {
+          "package_name": "com.example.cloudypedia.fawrysurveillanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584666349039-5llhs0n4burch2cu6g5bnbejqf8qq2mv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cloudypedia.fawrysurveillanceapp",
+            "certificate_hash": "DF99F2C01940A92DA7FE239E15257E585FBC7653"
+          }
+        },
+        {
+          "client_id": "584666349039-b4qibs4a56r2p0sjmmi4gd2524fvo3au.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "584666349039-68jnnnpuuc0dq6eaiaj5mg0kj665812n.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "584666349039-hapvscpag4083e3vnai97a1on2m60cjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMv02IjHmIQQcYy5uI4W3eYascFevU-FE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
           "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584666349039-b4qibs4a56r2p0sjmmi4gd2524fvo3au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     }
