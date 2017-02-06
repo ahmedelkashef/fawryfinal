@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
@@ -33,23 +34,23 @@ public class FetchVistsTask extends AsyncTask<String,String,Report[]>{
 
     @Override
     protected void onPreExecute() {
+
         super.onPreExecute();
     }
     private Report[] getLocationDataFromJson(String ReportJsonStr)
             throws JSONException {
 
 
+        JSONObject itemsJson = new JSONObject(ReportJsonStr);
+        JSONArray jsonArray = itemsJson.getJSONArray("items");
 
-        String result = ReportJsonStr;
-        JSONArray jsonArray = new JSONArray(result);
-        Report [] reports = new Report[jsonArray.length()];
-
+        Report []reports = new Report[jsonArray.length()];
 
         for (int i = 0; i < reports.length  ; i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 
             Report r = new Report();
-            r.setGISLocation(jsonObject.get("latitude").toString()  + jsonObject.get("longitude").toString() );
+            r.setGISLocation(jsonObject.get("latitude").toString() +" , " + jsonObject.get("longitude").toString() );
             r.setName(jsonObject.get("user").toString());
             r.setReportId(jsonObject.get("id").toString());
             r.setReportDate(Long.parseLong(jsonObject.get("date").toString()));
@@ -58,8 +59,11 @@ public class FetchVistsTask extends AsyncTask<String,String,Report[]>{
 
             if (!jsonObject.get("indexedCustomFields").equals(null)) {
                 JSONObject indexedCustomFields = (JSONObject) jsonObject.get("indexedCustomFields");
-                r.setTerminalID(indexedCustomFields.get("barcode").toString());
-                r.setSalesID(indexedCustomFields.get("barcode").toString());
+                r.setBarcode(indexedCustomFields.get("barcode").toString());
+                r.setSalesID(indexedCustomFields.get("salesId").toString());
+                r.setRange(indexedCustomFields.get("range").toString());
+                r.setSalesName(indexedCustomFields.get("salesName").toString());
+                r.setIncidentType(indexedCustomFields.get("incidentType").toString());
             }
           /*  if (!jsonObject.get("unIndexedCustomFields").equals(null)) {
                 JSONObject unindexedCustomFields = (JSONObject) jsonObject.get("unIndexedCustomFields");
@@ -84,15 +88,16 @@ public class FetchVistsTask extends AsyncTask<String,String,Report[]>{
         try {
             AppConstants.initSecuredConnection();
 
-            final String BASE_URL = "https://4-dot-cloudypedia-abc.appspot.com/a/checkin";
-            String CONTROLLER_URL = null;
             String[] PARMETER_URL = null;
+
             Uri BuiltUri;
-                CONTROLLER_URL = "getBranchbyTerminalId";
-                PARMETER_URL = new String[1];
-                PARMETER_URL[0] = "date";
-                PARMETER_URL[1] = "email";
-                BuiltUri = Uri.parse(BASE_URL + CONTROLLER_URL).buildUpon().appendQueryParameter(PARMETER_URL[0], strings[0]).appendQueryParameter(PARMETER_URL[1], strings[1])
+
+                PARMETER_URL = new String[2];
+                PARMETER_URL[0] = "userIdToken";
+                PARMETER_URL[1] = "date";
+               //String encodedemail = Uri.encode(strings[1],"UTF-8");
+         //   String encodedemail  = URLEncoder.encode(strings[1],"UTF-8");
+                BuiltUri = Uri.parse(AppConstants.QUERY_ATTENDANCE_LOG).buildUpon().appendQueryParameter(PARMETER_URL[0], strings[0]).appendQueryParameter(PARMETER_URL[1], strings[1])
                         .build();
 
 
@@ -151,8 +156,7 @@ public class FetchVistsTask extends AsyncTask<String,String,Report[]>{
     @Override
     protected void onPostExecute(Report[] reports) {
 
-        for (Report r : reports
-             ) {
+        for (Report r : reports) {
            // Toast.makeText(VistsActivity.this., r.getName(), Toast.LENGTH_SHORT).show();
             Log.v(LOG_TAG, "JSON String = " + r.getName());
 

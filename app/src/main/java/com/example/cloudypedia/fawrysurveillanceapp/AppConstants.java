@@ -42,6 +42,7 @@ public class AppConstants {
      * create upload url
      */
     public static final String CREATE_UPLOAD_URL = BASE_HOST_URL + "/m/upload/createUploadUrl";
+    public static final String QUERY_ATTENDANCE_LOG = BASE_HOST_URL + "/m/queryAttendanceLogsOne";
 
     /**
      * upload tracking data url

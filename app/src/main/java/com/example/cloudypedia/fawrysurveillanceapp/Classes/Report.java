@@ -20,14 +20,14 @@ public class Report implements Parcelable {
     private String salesEmail;
     private String salesID;
     private Bitmap reportImage;
-    private String terminalID;
+    private String barcode;
     private Long reportDate;
     private String comment;
-
-
-
     private String Status;
 
+
+
+    private String incidentType;
  
 
 
@@ -41,7 +41,7 @@ public class Report implements Parcelable {
         salesEmail = in.readString();
         salesID = in.readString();
         reportImage = in.readParcelable(Bitmap.class.getClassLoader());
-        terminalID = in.readString();
+        barcode = in.readString();
     }
     public String getReportId() {
         return reportId;
@@ -71,14 +71,6 @@ public class Report implements Parcelable {
 
     public void setSalesName(String salesName) {
         this.salesName = salesName;
-    }
-
-    public String getMerchantID() {
-        return terminalSerial;
-    }
-
-    public void setMerchantID(String merchantID) {
-        this.terminalSerial = merchantID;
     }
 
     public String getRange() {
@@ -113,13 +105,6 @@ public class Report implements Parcelable {
         this.salesID = salesID;
     }
 
-    public String getTerminalID() {
-        return terminalID;
-    }
-
-    public void setTerminalID(String terminalID) {
-        this.terminalID = terminalID;
-    }
 
     public String getLocation() {
         return location;
@@ -168,6 +153,29 @@ public class Report implements Parcelable {
         this.reportImage = reportImage;
     }
 
+    public String getTerminalSerial() {
+        return terminalSerial;
+    }
+
+    public void setTerminalSerial(String terminalSerial) {
+        this.terminalSerial = terminalSerial;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+    public String getIncidentType() {
+        return incidentType;
+    }
+
+    public void setIncidentType(String incidentType) {
+        this.incidentType = incidentType;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -184,6 +192,6 @@ public class Report implements Parcelable {
         parcel.writeString(salesEmail);
         parcel.writeString(salesID);
         parcel.writeParcelable(reportImage, i);
-        parcel.writeString(terminalID);
+        parcel.writeString(barcode);
     }
 }

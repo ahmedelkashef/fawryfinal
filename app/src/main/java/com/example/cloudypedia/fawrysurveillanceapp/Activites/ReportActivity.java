@@ -77,7 +77,7 @@ public  class ReportActivity extends AppCompatActivity {
         locationtxt.setText("موقع التاجر : " + report.getLocation());
 
         merchantId = (TextView) findViewById(R.id.MerchantID_txt);
-        merchantId.setText("رقم التاجر : " + report.getMerchantID());
+        merchantId.setText("رقم التاجر : " + report.getTerminalSerial());
 
         salesId = (TextView) findViewById(R.id.salesId_txt);
         salesId.setText("رقم المندوب : " + report.getSalesID());
@@ -110,7 +110,7 @@ public  class ReportActivity extends AppCompatActivity {
         comment = (EditText) findViewById(R.id.comment_txt);
         spinner = (Spinner) findViewById(R.id.type_spinner);
 
-
+        report.setComment(comment.getText().toString());
         BarcodeBtn = (Button) findViewById(R.id.barcode_btn);
         BarcodeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,7 +247,7 @@ public  class ReportActivity extends AppCompatActivity {
         else
             Toast.makeText(getApplicationContext(), "خطأ في التواصل .. من فضلك حاول مرة اخري", Toast.LENGTH_SHORT).show();
 
-        report.setMerchantID(current_merchant.getTerminalID());
+        report.setTerminalSerial(current_merchant.getTerminalID());
         report.setRange(Double.toString(Range) );
 
     /*        report.setSalesID(sharedpreferences.getString(AppConstants.Id,""));
@@ -259,7 +259,7 @@ public  class ReportActivity extends AppCompatActivity {
         report.setSalesEmail(Utility.getPreferredEmail(this));
         //report.setTerminalID();
         report.setStatus( "UnSuccsessful");
-        report.setComment(comment.getText().toString());
+
 
     }
 
@@ -290,11 +290,11 @@ public  class ReportActivity extends AppCompatActivity {
 
     public void checkStatus()
     {
-        if(Range <= 100.0 && report.getMerchantID() == barcodetxt)
+        if(Range <= 100.0 && report.getTerminalSerial() == barcodetxt)
             report.setStatus("Succsessful") ;
         else if (Range > 100.0 )
             report.setStatus("UnSuccsessful (Range Exceed 100 Meter)");
-        else if ( report.getMerchantID() != barcodetxt)
+        else if ( report.getTerminalSerial() != barcodetxt)
             report.setStatus( "UnSuccsessful (Serial Doesn't Match)");
         else
             report.setStatus("UnSuccsessful");

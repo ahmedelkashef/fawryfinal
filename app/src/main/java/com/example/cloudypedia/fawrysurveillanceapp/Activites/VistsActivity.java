@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Rowcontent;
 import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.FetchVistsTask;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class VistsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vists);
 
         FetchVistsTask fetchVistsTask = new FetchVistsTask();
-        fetchVistsTask.execute( Long.toString(dateTime.getTimeInMillis()) , "kashef@cloudypedia.com");
+        fetchVistsTask.execute( Utility.getStringPreference(this, Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()) );
         IntializeViews();
         bulidTable();
 
