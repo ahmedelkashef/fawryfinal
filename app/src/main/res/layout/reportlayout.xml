@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bgapp"
-    android:weightSum="1"
-    android:orientation="vertical">
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/bgapp"
+android:weightSum="1"
+android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,61 +27,61 @@
             android:textColor="@android:color/holo_orange_light"
             android:focusable="true"
             android:focusableInTouchMode="true"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="5dp">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/date_txt"
-            android:hint="Date"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/name_txt"
-            android:hint="Name"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/date_txt"
+                android:hint="Date"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name_txt"
+                android:hint="Name"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/MerchantID_txt"
-            android:hint="Merchant ID "
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/location_txt"
-            android:hint="Location"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MerchantID_txt"
+                android:hint="Merchant ID "
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/location_txt"
+                android:hint="Location"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/GISLocation_txt"
-            android:hint="GIS Location"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
-</LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/GISLocation_txt"
+                android:hint="GIS Location"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
+        </LinearLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,36 +100,36 @@
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingTop="5dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/salesName_txt"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:hint="Sales Name"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/salesName_txt"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:hint="Sales Name"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/salesEmail_txt"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:hint="Email"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/salesEmail_txt"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:hint="Email"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/salesId_txt"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:hint="ID"
-            android:layout_weight="0.05"
-            android:textColor="@android:color/holo_orange_light"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/salesId_txt"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:hint="ID"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:padding="5dp"
-           android:text="الماكينة"
+            android:text="الماكينة"
             android:textSize="24sp"
             android:textColor="@android:color/holo_orange_light"
             android:layout_weight="0.05"/>
@@ -169,13 +169,13 @@
             android:layout_marginBottom="8dp"
             android:paddingTop="8dp"
             android:background="@android:color/holo_orange_light" />
-    <!--    <Button
-            android:text="Save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Save_btn"
-            android:layout_weight="0.05"
-            android:visibility="invisible"/>-->
+        <!--    <Button
+                android:text="Save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Save_btn"
+                android:layout_weight="0.05"
+                android:visibility="invisible"/>-->
 
         <!--<Button
             android:text="ابلغ عن حادثة"
@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/Report_btn"
             android:layout_weight="0.05"/>-->
-<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+        <!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
 
 
         <LinearLayout
@@ -193,15 +193,15 @@
             android:background="@drawable/bgapp"
             android:weightSum="1">
 
-  <!--          <TextView
-                android:text="حادثة"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:textAlignment="center"
-                android:textSize="30sp"
-                android:textColor="@android:color/holo_orange_light"
-                android:layout_marginBottom="16dp"/>-->
+            <!--          <TextView
+                          android:text="حادثة"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/textView2"
+                          android:textAlignment="center"
+                          android:textSize="30sp"
+                          android:textColor="@android:color/holo_orange_light"
+                          android:layout_marginBottom="16dp"/>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -275,6 +275,6 @@
 
         </LinearLayout>
     </LinearLayout>
-    </ScrollView>
+</ScrollView>
 
 </LinearLayout>

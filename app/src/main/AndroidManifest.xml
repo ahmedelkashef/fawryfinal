@@ -53,8 +53,9 @@
 
         <activity android:name=".Activites.IncidentActivity" />
         <activity android:name=".Activites.ScanBarcodeActivity" />
-        <activity android:name=".Activites.VistsActivity"></activity>
-        <activity android:name=".Activites.ReportActivity"></activity>
+        <activity android:name=".Activites.VistsActivity" />
+        <activity android:name=".Activites.ReportActivity" />
+        <activity android:name=".Activites.ViewReportActivity"></activity>
     </application>
 
 </manifest>

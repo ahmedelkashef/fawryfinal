@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="50sp"
+    android:paddingBottom="16dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -11,11 +11,12 @@
     tools:context="com.example.cloudypedia.fawrysurveillanceapp.Activites.VistsActivity"
     android:background="@drawable/bgapp"
     android:weightSum="1">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0.08">
+      >
 
         <Button
             android:layout_width="wrap_content"
@@ -35,62 +36,79 @@
 
 
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#607D8B"
+                android:padding="5dp">
+
+                <TextView
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="التاريخ"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="اسم التاجر"
+                    android:id="@+id/textView3"
+                    android:textSize="20dp"
+                    android:paddingRight="5dp"/>
+
+            </LinearLayout>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/mytable">
+
+        android:id="@+id/mytable"
+        android:nestedScrollingEnabled="true">
 
 
-        <TableRow
-            android:background="#607D8B"
-            android:padding="5dp">
-            <TextView
-                android:paddingRight="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="التاريخ"
-                android:textSize="20dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="اسم التاجر"
-                android:id="@+id/textView3"
-                android:textSize="20dp"
-                android:paddingRight="5dp"/>
-
-
-        </TableRow>
 
 
 
     </TableLayout>
 
+
+        </LinearLayout>
+    </ScrollView>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="129dp">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1">
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_previous"
             android:id="@+id/imageButton2"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+         />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_next"
             android:id="@+id/imageButton"
-            android:layout_alignParentBottom="true"
+
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
-
 
 </LinearLayout>

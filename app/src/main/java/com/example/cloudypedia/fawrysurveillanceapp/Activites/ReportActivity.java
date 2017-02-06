@@ -166,8 +166,8 @@ public  class ReportActivity extends AppCompatActivity {
                                 jsonObject.toString());
 
                         //Toast.makeText(getApplicationContext(), " Data Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
-
+                        Intent intent = new Intent( ReportActivity.this , VistsActivity.class);
+                        startActivity(intent);
                     } catch (Exception ex) {
                         Toast.makeText(getApplicationContext(), "There is Error ", Toast.LENGTH_SHORT).show();
                     }
@@ -278,6 +278,8 @@ public  class ReportActivity extends AppCompatActivity {
             jsonObject.put("barcode", barcodetxt);
             jsonObject.put("salesName", report.getSalesName());
             jsonObject.put("salesId",report.getSalesID());
+            jsonObject.put("location" , report.getLocation());
+            jsonObject.put("terminalSerial" , report.getTerminalSerial());
 
         } catch (JSONException e) {
             e.printStackTrace();

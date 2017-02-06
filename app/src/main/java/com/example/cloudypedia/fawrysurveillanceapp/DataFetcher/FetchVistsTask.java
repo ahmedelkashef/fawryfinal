@@ -1,3 +1,4 @@
+/*
 package com.example.cloudypedia.fawrysurveillanceapp.DataFetcher;
 
 import android.net.Uri;
@@ -24,9 +25,11 @@ import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
+*/
 /**
  * Created by dev3 on 2/5/2017.
- */
+ *//*
+
 
 public class FetchVistsTask extends AsyncTask<String,String,Report[]>{
 
@@ -65,13 +68,15 @@ public class FetchVistsTask extends AsyncTask<String,String,Report[]>{
                 r.setSalesName(indexedCustomFields.get("salesName").toString());
                 r.setIncidentType(indexedCustomFields.get("incidentType").toString());
             }
-          /*  if (!jsonObject.get("unIndexedCustomFields").equals(null)) {
+          */
+/*  if (!jsonObject.get("unIndexedCustomFields").equals(null)) {
                 JSONObject unindexedCustomFields = (JSONObject) jsonObject.get("unIndexedCustomFields");
                 r.setAddress(unindexedCustomFields.get("StreeName").toString() + ", " +
                         unindexedCustomFields.get("AreaName").toString() );
                 r.setPhone(unindexedCustomFields.get("MobileNum").toString());
                 r.setMerchantType(unindexedCustomFields.get("MerchantTypeName").toString());
-            }*/
+            }*//*
+
             reports[i] = r;
 
         }
@@ -164,3 +169,4 @@ public class FetchVistsTask extends AsyncTask<String,String,Report[]>{
         super.onPostExecute(reports);
     }
 }
+*/

@@ -10,6 +10,7 @@ import android.os.Parcelable;
 
 public class Report implements Parcelable {
 
+
     private String name ;
     private String reportId;
     private String location;
@@ -24,15 +25,14 @@ public class Report implements Parcelable {
     private Long reportDate;
     private String comment;
     private String Status;
-
-
-
     private String incidentType;
- 
 
+    public Report() {
+    }
 
     protected Report(Parcel in) {
         name = in.readString();
+        reportId = in.readString();
         location = in.readString();
         terminalSerial = in.readString();
         GISLocation = in.readString();
@@ -42,15 +42,10 @@ public class Report implements Parcelable {
         salesID = in.readString();
         reportImage = in.readParcelable(Bitmap.class.getClassLoader());
         barcode = in.readString();
-    }
-    public String getReportId() {
-        return reportId;
-    }
-
-    public void setReportId(String reportId) {
-        this.reportId = reportId;
-    }
-    public Report() {
+        comment = in.readString();
+        Status = in.readString();
+        incidentType = in.readString();
+        reportDate=in.readLong();
     }
 
     public static final Creator<Report> CREATOR = new Creator<Report>() {
@@ -65,12 +60,68 @@ public class Report implements Parcelable {
         }
     };
 
-    public String getSalesName() {
-        return salesName;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setSalesName(String salesName) {
-        this.salesName = salesName;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(reportId);
+        parcel.writeString(location);
+        parcel.writeString(terminalSerial);
+        parcel.writeString(GISLocation);
+        parcel.writeString(range);
+        parcel.writeString(salesName);
+        parcel.writeString(salesEmail);
+        parcel.writeString(salesID);
+        parcel.writeParcelable(reportImage, i);
+        parcel.writeString(barcode);
+        parcel.writeString(comment);
+        parcel.writeString(Status);
+        parcel.writeString(incidentType);
+        parcel.writeLong(reportDate);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getReportId() {
+        return reportId;
+    }
+
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getTerminalSerial() {
+        return terminalSerial;
+    }
+
+    public void setTerminalSerial(String terminalSerial) {
+        this.terminalSerial = terminalSerial;
+    }
+
+    public String getGISLocation() {
+        return GISLocation;
+    }
+
+    public void setGISLocation(String GISLocation) {
+        this.GISLocation = GISLocation;
     }
 
     public String getRange() {
@@ -81,12 +132,12 @@ public class Report implements Parcelable {
         this.range = range;
     }
 
-    public String getGISLocation() {
-        return GISLocation;
+    public String getSalesName() {
+        return salesName;
     }
 
-    public void setGISLocation(String GISLocation) {
-        this.GISLocation = GISLocation;
+    public void setSalesName(String salesName) {
+        this.salesName = salesName;
     }
 
     public String getSalesEmail() {
@@ -105,40 +156,20 @@ public class Report implements Parcelable {
         this.salesID = salesID;
     }
 
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
     public Bitmap getReportImage() {
         return reportImage;
     }
-    public String getStatus() {
-        return Status;
+
+    public void setReportImage(Bitmap reportImage) {
+        this.reportImage = reportImage;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public String getBarcode() {
+        return barcode;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
     public Long getReportDate() {
@@ -149,25 +180,22 @@ public class Report implements Parcelable {
         this.reportDate = reportDate;
     }
 
-    public void setReportImage(Bitmap reportImage) {
-        this.reportImage = reportImage;
+    public String getComment() {
+        return comment;
     }
 
-    public String getTerminalSerial() {
-        return terminalSerial;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public void setTerminalSerial(String terminalSerial) {
-        this.terminalSerial = terminalSerial;
+    public String getStatus() {
+        return Status;
     }
 
-    public String getBarcode() {
-        return barcode;
+    public void setStatus(String status) {
+        Status = status;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
     public String getIncidentType() {
         return incidentType;
     }
@@ -176,22 +204,7 @@ public class Report implements Parcelable {
         this.incidentType = incidentType;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeString(location);
-        parcel.writeString(terminalSerial);
-        parcel.writeString(GISLocation);
-        parcel.writeString(range);
-        parcel.writeString(salesName);
-        parcel.writeString(salesEmail);
-        parcel.writeString(salesID);
-        parcel.writeParcelable(reportImage, i);
-        parcel.writeString(barcode);
+    public static Creator<Report> getCREATOR() {
+        return CREATOR;
     }
 }

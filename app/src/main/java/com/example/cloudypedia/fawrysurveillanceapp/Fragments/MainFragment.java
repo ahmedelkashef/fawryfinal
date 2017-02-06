@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -13,15 +14,18 @@ import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.cloudypedia.fawrysurveillanceapp.Activites.VistsActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.AdressDialog;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.Controller;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 
 import java.util.ArrayList;
 
@@ -33,6 +37,7 @@ public class MainFragment extends Fragment {
 
     ImageButton searchByTerminalId;
     ImageButton searchByNearset;
+   //ImageButton myvisits;
     ProgressDialog progressDialog;
     protected String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -76,6 +81,7 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         searchByTerminalId = (ImageButton) rootView.findViewById(R.id.find_by_terminalNo);
          searchByNearset = (ImageButton) rootView.findViewById(R.id.find_by_nearset); ;
+       // myvisits = (ImageButton) rootView.findViewById(R.id.myvistis_btn);
         searchByTerminalId.setOnClickListener(new View.OnClickListener() {
                                                @Override
                                                public void onClick(View view) {
@@ -89,6 +95,13 @@ public class MainFragment extends Fragment {
                 OnDisplayClick(view , searchByNearset);
             }
         });
+
+    /*    myvisits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnDisplayClick(view,myvisits);
+            }
+        });*/
 
         return rootView ;
     }
@@ -130,6 +143,7 @@ public class MainFragment extends Fragment {
                         }else
                             Toast.makeText(getActivity(),"خطأ في التواصل .. من فضلك حاول مرة اخري",Toast.LENGTH_SHORT).show();
                     }
+
                 }
                 else if(!gpsHandller.isGPSEnabled())
                 {
