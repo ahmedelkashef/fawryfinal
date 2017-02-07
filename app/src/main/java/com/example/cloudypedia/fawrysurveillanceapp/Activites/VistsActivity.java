@@ -217,6 +217,7 @@ public class VistsActivity extends AppCompatActivity {
                 r.setSalesEmail(jsonObject.get("email").toString());
                 r.setComment(jsonObject.get("comment").toString());
                 r.setStatus(jsonObject.get("status").toString());
+                r.setReportUrl(jsonObject.get("imageUrl").toString());
 
                 if (!jsonObject.get("indexedCustomFields").equals(null)) {
                     JSONObject indexedCustomFields = (JSONObject) jsonObject.get("indexedCustomFields");
@@ -229,6 +230,7 @@ public class VistsActivity extends AppCompatActivity {
                     r.setLocation(indexedCustomFields.get("location").toString());
                     if(indexedCustomFields.has("terminalSerial"))
                         r.setTerminalSerial(indexedCustomFields.get("terminalSerial").toString());
+
                 }
           /*  if (!jsonObject.get("unIndexedCustomFields").equals(null)) {
                 JSONObject unindexedCustomFields = (JSONObject) jsonObject.get("unIndexedCustomFields");

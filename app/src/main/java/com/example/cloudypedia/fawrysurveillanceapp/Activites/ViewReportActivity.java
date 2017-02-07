@@ -19,6 +19,7 @@ import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.Alert_Dialog;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,10 +27,9 @@ import java.util.Date;
 public class ViewReportActivity extends AppCompatActivity {
 
     public TextView gisLocation, locationtxt, name, merchantId, salesId, salesName, salesEmail, barcode, date , comment ,type  ,status;
-    private ImageView imageView;
-    public Bitmap imgbitmap;
+
     public Report report;
-    public  Button range;
+    public  Button range , showImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +77,7 @@ public class ViewReportActivity extends AppCompatActivity {
         }
 
         range.setText("المسافة : " + report.getRange() + " متر");
-        imageView = (ImageView) findViewById(R.id.captured_img);
+        showImage = (Button) findViewById(R.id.show_photo_btn);
 
 
         status = (TextView) findViewById(R.id.status_txt);
@@ -85,8 +85,18 @@ public class ViewReportActivity extends AppCompatActivity {
 
         type = (TextView)findViewById(R.id.type_txt);
         type.setText("نوع الزيارة :" + report.getIncidentType());
+
         comment = (TextView) findViewById(R.id.comment_txt);
         comment.setText("تعليق :" +report.getComment());
+
+        showImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewReportActivity.this , PhotoActivity.class);
+                intent.putExtra("photoUrl",report.getReportUrl());
+                startActivity(intent);
+            }
+        });
 
     }
     void Intialize_data() {

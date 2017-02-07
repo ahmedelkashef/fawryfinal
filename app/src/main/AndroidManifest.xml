@@ -56,6 +56,8 @@
         <activity android:name=".Activites.VistsActivity" />
         <activity android:name=".Activites.ReportActivity" />
         <activity android:name=".Activites.ViewReportActivity"></activity>
+
+        <activity android:name=".Activites.PhotoActivity"></activity>
     </application>
 
 </manifest>

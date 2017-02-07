@@ -138,10 +138,17 @@ public  class ReportActivity extends AppCompatActivity {
                     if (imgbitmap == null) {
                         newDialog.photo = "لا يوجد صورة";
                     }
-
-                    if (barcodetxt.isEmpty() || barcodetxt == "لا يوجد بار كود") {
-                        newDialog.barcode = "لا يوجد  باركود";
+                    if( !report.getTerminalSerial().equals( barcodetxt))
+                    {
+                        if (barcodetxt.isEmpty() || barcodetxt == "لا يوجد بار كود") {
+                            newDialog.barcode = "لا يوجد  باركود";
+                        }
+                        else
+                        {
+                            newDialog.barcode = "الباركود غير متطابق";
+                        }
                     }
+
 
                     if (Range > 100) {
 
@@ -258,7 +265,7 @@ public  class ReportActivity extends AppCompatActivity {
         report.setSalesName(Utility.getPreferredName(this));
         report.setSalesEmail(Utility.getPreferredEmail(this));
         //report.setTerminalID();
-        report.setStatus( "UnSuccsessful");
+        report.setStatus( "غير ناجحة");
 
 
     }
@@ -293,13 +300,13 @@ public  class ReportActivity extends AppCompatActivity {
     public void checkStatus()
     {
         if(Range <= 100.0 && report.getTerminalSerial() == barcodetxt)
-            report.setStatus("Succsessful") ;
+            report.setStatus("ناجحة") ;
         else if (Range > 100.0 )
-            report.setStatus("UnSuccsessful (Range Exceed 100 Meter)");
+            report.setStatus("غير ناجحة (المسافة تعدت 100 متر)");
         else if ( report.getTerminalSerial() != barcodetxt)
-            report.setStatus( "UnSuccsessful (Serial Doesn't Match)");
+            report.setStatus("غير ناجحة (الباركود غير مطابق)");
         else
-            report.setStatus("UnSuccsessful");
+            report.setStatus("غير ناجحة");
 
 
     }

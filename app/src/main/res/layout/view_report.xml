@@ -242,15 +242,12 @@
                         />
 
 
-                    <ImageView
-
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:id="@+id/captured_img"
-                        />
+                   <Button
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/show_photo_btn"
+                       android:text="اعرض الصورة"
+                       android:layout_gravity="center"/>
 
                 </LinearLayout>
 

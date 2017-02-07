@@ -20,7 +20,7 @@ public class Report implements Parcelable {
     private String salesName;
     private String salesEmail;
     private String salesID;
-    private Bitmap reportImage;
+    private String reportUrl;
     private String barcode;
     private Long reportDate;
     private String comment;
@@ -40,7 +40,7 @@ public class Report implements Parcelable {
         salesName = in.readString();
         salesEmail = in.readString();
         salesID = in.readString();
-        reportImage = in.readParcelable(Bitmap.class.getClassLoader());
+        reportUrl = in.readString();
         barcode = in.readString();
         comment = in.readString();
         Status = in.readString();
@@ -76,7 +76,7 @@ public class Report implements Parcelable {
         parcel.writeString(salesName);
         parcel.writeString(salesEmail);
         parcel.writeString(salesID);
-        parcel.writeParcelable(reportImage, i);
+        parcel.writeString(reportUrl);
         parcel.writeString(barcode);
         parcel.writeString(comment);
         parcel.writeString(Status);
@@ -156,12 +156,12 @@ public class Report implements Parcelable {
         this.salesID = salesID;
     }
 
-    public Bitmap getReportImage() {
-        return reportImage;
+    public String getReportUrl() {
+        return reportUrl;
     }
 
-    public void setReportImage(Bitmap reportImage) {
-        this.reportImage = reportImage;
+    public void setReportUrl(String reportUrl) {
+        this.reportUrl = reportUrl;
     }
 
     public String getBarcode() {
