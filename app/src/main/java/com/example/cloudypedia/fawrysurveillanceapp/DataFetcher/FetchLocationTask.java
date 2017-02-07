@@ -3,6 +3,7 @@ package com.example.cloudypedia.fawrysurveillanceapp.DataFetcher;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.widget.Toast;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Activites.MapsActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.AppConstants;
+import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
+import com.example.cloudypedia.fawrysurveillanceapp.Fragments.MainFragment;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 
 import org.json.JSONArray;
@@ -86,10 +89,21 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         // Will contain the raw JSON response as a string.
-        String MoviesJsonStr = null;
-        currentLat = Double.parseDouble(params[1]);
-        currentLong = Double.parseDouble(params[2]);
+        String locationsJsonStr = null;
 
+        final GPSHandller gpsHandller = new GPSHandller(context);
+        Location location = gpsHandller.getLocation();
+
+        if(location!=null) {
+            currentLat = location.getLatitude();
+            currentLong = location.getLongitude();
+
+        }
+        else {
+            Utility.showMessage("خطأ في التواصل .. من فضلك حاول مرة اخري" ,context);
+         /*   Toast.makeText(context, "خطأ في التواصل .. من فضلك حاول مرة اخري", Toast.LENGTH_SHORT).show();
+*/
+        }
         try {
             AppConstants.initSecuredConnection();
 
@@ -104,6 +118,7 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
                 BuiltUri = Uri.parse(BASE_URL + CONTROLLER_URL).buildUpon().appendQueryParameter(PARMETER_URL[0], params[1])
                         .build();
             } else {
+
                 CONTROLLER_URL = "getBranchesbyNearest";
                 PARMETER_URL = new String[2];
                 PARMETER_URL[0] = "latitude";
@@ -115,7 +130,7 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
             }
             URL url = new URL(BuiltUri.toString());
             Log.v("uri=", BuiltUri.toString());
-            // Create the request to theMovieDb, and open the connectio
+
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
 
@@ -138,8 +153,8 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
                 return null;
             }
 
-            MoviesJsonStr = buffer.toString();
-            Log.v(LOG_TAG, "JSON String = " + MoviesJsonStr);
+            locationsJsonStr = buffer.toString();
+            Log.v(LOG_TAG, "JSON String = " + locationsJsonStr);
         } catch (IOException e) {
             return null;
         } catch (NoSuchAlgorithmException e) {
@@ -158,7 +173,7 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
             }
         }
         try {
-            return getLocationDataFromJson(MoviesJsonStr);
+            return getLocationDataFromJson(locationsJsonStr);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -179,7 +194,6 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
             if(Merchants.length == 0)
             {
                 Toast.makeText(context, "خطأ في رقم الماكينة .. من فضلك تأكد من الرقم.", Toast.LENGTH_SHORT).show();
-                Utility.dismissProgressDialog();
             }
             ArrayList<Merchant> merchants = new ArrayList<Merchant>(Arrays.asList(Merchants));
 

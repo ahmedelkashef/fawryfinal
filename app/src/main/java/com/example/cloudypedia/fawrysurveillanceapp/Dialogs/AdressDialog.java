@@ -42,9 +42,10 @@ public class AdressDialog extends DialogFragment {
 
                         EditText adressEditText = (EditText)view.findViewById(R.id.et_adress);
                         String adress = adressEditText.getText().toString();
-                        dialog.dismiss();
+
                         ProgressDialog progressDialog;
                         progressDialog = ProgressDialog.show(AdressDialog.this.getActivity(), "" ,"جارى التحميل, انتظر من فضلك...", true);
+
                         Controller controller = new Controller(AdressDialog.this.getActivity(), progressDialog);
                         controller.findBranchByTerminalNo(adress.trim());
 

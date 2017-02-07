@@ -4,51 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.cloudypedia.fawrysurveillanceapp.Fragments.MainFragment">
 
 
-
     <ImageButton
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/find_by_terminalNo"
         android:src="@drawable/findbyacountno"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/transparent"
-        tools:scaleType="fitCenter"
-        android:layout_marginTop="148dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/find_by_nearset"
-        android:layout_alignStart="@+id/find_by_nearset"
-        android:layout_alignRight="@+id/find_by_nearset"
-        android:layout_alignEnd="@+id/find_by_nearset" />
+        android:layout_marginTop="150dp"
+
+   />
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/find_by_nearset"
         android:src="@drawable/findbtn2"
         android:layout_gravity="center"
         android:background="@android:color/transparent"
-        tools:scaleType="fitCenter"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/find_by_terminalNo"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="5dp"
+        />
 
-    <!--
-        <ImageButton
-            android:layout_width="wrap_content"
-            androiTop="@+id/find_by_nearset"
-            android:layout_alignLeft="@+id/find_by_nearset"
-            android:layout_alignStart="@+id/find_by_nearset"
-            android:layout_marginLeft="33dp"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="80dp" />
-    -->
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/myvisits"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/myvisits_btn"
+        android:background="@android:color/transparent"/>
 
-</RelativeLayout>
+</LinearLayout>
 
 </ScrollView>

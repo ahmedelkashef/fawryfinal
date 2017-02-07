@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -47,32 +48,56 @@ public class VistsActivity extends AppCompatActivity {
 
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
     Calendar dateTime = Calendar.getInstance();
-    private TextView text ;
+    TextView text ;
     TextView date [], location[];
-    private Button btn_date;
+    Button btn_date;
     TableLayout tableLayout;
     TableRow tableRow;
     List<Rowcontent> rowcontent;
     Report [] Reports;
+    ImageButton refreshbtn ;
 
-    @Override
-    protected void onStart() {
+
+
+ /*   protected void onStart() {
         super.onStart();
         FetchVistsTask fetchVistsTask = new FetchVistsTask();
         fetchVistsTask.execute( Utility.getStringPreference(this, Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()));
+    }
+*/
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    outState.putParcelableArray("ReportKey",Reports);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vists);
+    if(savedInstanceState == null)
+        {
+             Reports = new Report[1];
+        }
+        else
+        {
+            Reports = (Report[]) savedInstanceState.getParcelableArray("ReportKey");
+        }
         IntializeViews();
 
+        new  FetchVistsTask().execute( Utility.getStringPreference(VistsActivity.this , Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()));
 
         btn_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateDate();
+            }
+        });
+        refreshbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+              new  FetchVistsTask().execute( Utility.getStringPreference(VistsActivity.this , Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()));
             }
         });
         updateTextLabel();
@@ -99,14 +124,14 @@ public class VistsActivity extends AppCompatActivity {
 
     private void updateTextLabel(){
         text.setText(formatDateTime.format(dateTime.getTime()));
-        FetchVistsTask fetchVistsTask = new FetchVistsTask();
-        fetchVistsTask.execute( Utility.getStringPreference(this, Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()));
+        new  FetchVistsTask().execute( Utility.getStringPreference(VistsActivity.this , Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()));
     }
     private void IntializeViews()
     {
         text = (TextView) findViewById(R.id.txt_TextDateTime);
         btn_date = (Button) findViewById(R.id.btn_datePicker);
         tableLayout = (TableLayout) findViewById(R.id.mytable);
+        refreshbtn = (ImageButton) findViewById(R.id.Refresh);
 
     }
 /*    private List <Rowcontent> intializeList ()
@@ -171,7 +196,7 @@ public class VistsActivity extends AppCompatActivity {
     public void setDateAttributes( int i)
     {
         date[i].setPadding(5,0,5,5);
-        date[i].setTextSize(18);
+        date[i].setTextSize(16);
         date[i].setTextColor(getResources().getColor(R.color.date_color_text));
         SpannableString content = new SpannableString(rowcontent.get(i).getDate());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -188,6 +213,9 @@ public class VistsActivity extends AppCompatActivity {
         location[i].setText(rowcontent.get(i).getLocation());
         location[i].setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1.0f));
     }
+
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     public class FetchVistsTask extends AsyncTask<String,String,Report[]> {
 
         private final String LOG_TAG = FetchVistsTask.class.getSimpleName();

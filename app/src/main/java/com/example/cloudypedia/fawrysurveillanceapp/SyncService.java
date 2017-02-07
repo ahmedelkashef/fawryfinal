@@ -151,6 +151,7 @@ public class SyncService extends IntentService{
             }
             Log.e(TAG, responseString);
             showMessage(responseString);
+
             //Toast.makeText( getApplicationContext() , responseString, Toast.LENGTH_SHORT).show();
         } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
             Log.e(TAG, "uploadData: " + e.getMessage());

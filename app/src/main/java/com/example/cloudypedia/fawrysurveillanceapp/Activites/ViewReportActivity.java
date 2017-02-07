@@ -84,10 +84,10 @@ public class ViewReportActivity extends AppCompatActivity {
         status.setText("حالة الزيارة :" + report.getStatus());
 
         type = (TextView)findViewById(R.id.type_txt);
-        type.setText("نوع الزيارة :" + report.getIncidentType());
+        type.setText("نوع الزيارة : " + report.getIncidentType());
 
         comment = (TextView) findViewById(R.id.comment_txt);
-        comment.setText("تعليق :" +report.getComment());
+        comment.setText("تعليق : " +report.getComment());
 
         showImage.setOnClickListener(new View.OnClickListener() {
             @Override

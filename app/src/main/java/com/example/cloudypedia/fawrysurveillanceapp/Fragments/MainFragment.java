@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -37,7 +38,7 @@ public class MainFragment extends Fragment {
 
     ImageButton searchByTerminalId;
     ImageButton searchByNearset;
-   //ImageButton myvisits;
+    ImageButton myvisits;
     ProgressDialog progressDialog;
     protected String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -79,9 +80,10 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
         searchByTerminalId = (ImageButton) rootView.findViewById(R.id.find_by_terminalNo);
-         searchByNearset = (ImageButton) rootView.findViewById(R.id.find_by_nearset); ;
-       // myvisits = (ImageButton) rootView.findViewById(R.id.myvistis_btn);
+        searchByNearset = (ImageButton) rootView.findViewById(R.id.find_by_nearset); ;
+        myvisits = (ImageButton) rootView.findViewById(R.id.myvisits_btn);
         searchByTerminalId.setOnClickListener(new View.OnClickListener() {
                                                @Override
                                                public void onClick(View view) {
@@ -96,19 +98,18 @@ public class MainFragment extends Fragment {
             }
         });
 
-    /*    myvisits.setOnClickListener(new View.OnClickListener() {
+        myvisits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 OnDisplayClick(view,myvisits);
             }
-        });*/
+        });
 
         return rootView ;
     }
 
     public void btnFindByTerminalNo(View V){
         AdressDialog newFragment = new AdressDialog();
-        newFragment.setType(AdressDialog.TYPE.TERMINALNO);
         newFragment.show( getFragmentManager(), "البحث برقم التاجر");
     }
 
@@ -143,7 +144,11 @@ public class MainFragment extends Fragment {
                         }else
                             Toast.makeText(getActivity(),"خطأ في التواصل .. من فضلك حاول مرة اخري",Toast.LENGTH_SHORT).show();
                     }
-
+                    else if (clickedButton == myvisits)
+                    {
+                        Intent intent = new Intent( getActivity(), VistsActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 else if(!gpsHandller.isGPSEnabled())
                 {
@@ -177,5 +182,11 @@ public class MainFragment extends Fragment {
       dialog.show();
 
   }
-
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+    }
 }

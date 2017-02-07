@@ -1,5 +1,6 @@
 package com.example.cloudypedia.fawrysurveillanceapp;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -13,9 +14,11 @@ import android.graphics.Color;
 import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Activites.SignInActivity;
 
@@ -552,6 +555,17 @@ public class Utility {
         return file.delete();
     }
 
+    public static void showMessage(final String message , final Context context){
+        // Get a handler that can be used to post to the main thread
+        Handler mainHandler = new Handler(context.getMainLooper());
 
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            }
+        };
+        mainHandler.post(myRunnable);
+    }
 
 }
