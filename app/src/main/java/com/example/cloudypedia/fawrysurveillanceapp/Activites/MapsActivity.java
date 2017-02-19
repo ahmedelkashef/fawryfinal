@@ -4,30 +4,24 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
-import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.Controller;
-import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.Alert_Dialog;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
-import com.example.cloudypedia.fawrysurveillanceapp.Utility;
-import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,19 +31,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.vision.barcode.Barcode;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback ,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
 
     private GoogleMap mMap;
-    Location location;
+   Location location;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
     LatLng currentLocation;
     Marker marker ;
     ImageButton homebtn, refreshbtn;
@@ -66,8 +59,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int REQUEST_CODE_PERMISSION = 4;
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
+        mGoogleApiClient.connect();
 
     }
     public void onSaveInstanceState(Bundle outState) {
@@ -92,6 +95,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             currentLocation  = new LatLng(savedInstanceState.getDouble("pressedLat"), savedInstanceState.getDouble("pressedLong")) ;
         }
 
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000);
         setContentView(R.layout.activity_maps);
 
         homebtn = (ImageButton) findViewById(R.id.homeButton);
@@ -160,8 +174,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onInfoWindowClick(Marker marker) {
                 if(!(marker.equals(currentMarker))) {
+
                     float []result = new float[1];
-                    Location.distanceBetween(currentMarker.getPosition().latitude,currentMarker.getPosition().longitude, marker.getPosition().latitude,marker.getPosition().longitude, result);
+
+                    Location.distanceBetween(location.getLatitude(),location.getLongitude(), marker.getPosition().latitude,marker.getPosition().longitude, result);
+
 
                     double distance = Math.round (result[0] * 100.0) / 100.0;  ;
                     Merchant currentMerchant = (Merchant) marker.getTag();
@@ -171,6 +188,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
                     intent.putExtra("distance",distance);
+
+                    intent.putExtra("currentLocation", location);
+                   /* intent.putExtra("currentlatitude",currentLocation.latitude);
+                    intent.putExtra("currentlongtitude" , currentLocation.longitude );*/
                     intent.putExtras(b);
                     startActivity(intent);
                 }
@@ -181,13 +202,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
 
-                currentMarker.remove();
+                 currentMarker.remove();
                  currentMarker = mMap.addMarker(new MarkerOptions().position(latLng).title(" My Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
             refreshbtn.setVisibility(View.VISIBLE);
             }
         });
+
         }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+        else {
+            this.location = location;
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.location = location;
+    }
 
 
     /**

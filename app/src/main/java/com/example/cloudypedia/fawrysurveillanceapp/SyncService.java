@@ -9,6 +9,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.cloudypedia.fawrysurveillanceapp.Activites.VistsActivity;
+import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.AdressDialog;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -96,6 +99,7 @@ public class SyncService extends IntentService{
 
     private  boolean uploadData(HashMap<String,Object> locationData){
         boolean status = false;
+
         //make notification
         //makeNotification(this.getString(R.string.not_uploading_data));
 
@@ -150,8 +154,18 @@ public class SyncService extends IntentService{
                 responseString += line;
             }
             Log.e(TAG, responseString);
-            showMessage(responseString);
+           if(responseString.contains("true"))
+            {
+                showMessage("تم حفظ الزيارة بنجاح");
 
+                Intent intent = new Intent( this , VistsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            else
+            {
+                showMessage("خطأ في حفظ الزيارة");
+            }
             //Toast.makeText( getApplicationContext() , responseString, Toast.LENGTH_SHORT).show();
         } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
             Log.e(TAG, "uploadData: " + e.getMessage());

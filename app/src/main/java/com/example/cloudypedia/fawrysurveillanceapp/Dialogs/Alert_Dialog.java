@@ -3,6 +3,7 @@ package com.example.cloudypedia.fawrysurveillanceapp.Dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.example.cloudypedia.fawrysurveillanceapp.SyncService;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -39,7 +41,7 @@ import java.util.Date;
     public String barcode="" , photo="" , range="" ;
     private TextView alerttxt ;
    public   ReportActivity reportActivity;
-
+     ProgressDialog progressDialog;
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -79,8 +81,8 @@ import java.util.Date;
                                 reportActivity.report.getComment(),
                                 reportActivity.jsonObject.toString());
 
-                        Intent intent = new Intent( getActivity(), VistsActivity.class);
-                        startActivity(intent);
+                        progressDialog = ProgressDialog.show(reportActivity, "" ,"جارى  رفع الزيارة , انتظر من فضلك...", true);
+                     ;
 
                     }
                 })
@@ -92,6 +94,11 @@ import java.util.Date;
         return builder.create();
     }
 
-}
+     @Override
+     public void onStop()
+     {super.onStop();
+         progressDialog.dismiss();
+     }
+ }
 
 

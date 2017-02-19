@@ -83,6 +83,7 @@ public class VistsActivity extends AppCompatActivity {
         {
             Reports = (Report[]) savedInstanceState.getParcelableArray("ReportKey");
         }
+        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
         IntializeViews();
 
         new  FetchVistsTask().execute( Utility.getStringPreference(VistsActivity.this , Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()));
@@ -258,7 +259,10 @@ public class VistsActivity extends AppCompatActivity {
                     r.setLocation(indexedCustomFields.get("location").toString());
                     if(indexedCustomFields.has("terminalSerial"))
                         r.setTerminalSerial(indexedCustomFields.get("terminalSerial").toString());
-
+                    if(indexedCustomFields.has("terminalId"))
+                        r.setTerminalId(indexedCustomFields.get("terminalId").toString());
+                    if(indexedCustomFields.has("address"))
+                        r.setAddress(indexedCustomFields.get("address").toString());
                 }
           /*  if (!jsonObject.get("unIndexedCustomFields").equals(null)) {
                 JSONObject unindexedCustomFields = (JSONObject) jsonObject.get("unIndexedCustomFields");

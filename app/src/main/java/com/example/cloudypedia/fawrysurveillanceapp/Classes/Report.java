@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Map;
+
 /**
  * Created by dev3 on 12/15/2016.
  */
@@ -15,6 +17,7 @@ public class Report implements Parcelable {
     private String reportId;
     private String location;
     private String  terminalSerial;
+    private String terminalId;
     private String GISLocation;
     private String range;
     private String salesName;
@@ -26,8 +29,18 @@ public class Report implements Parcelable {
     private String comment;
     private String Status;
     private String incidentType;
+    private String address;
+    Map<String, String>  displayNames;
 
     public Report() {
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     protected Report(Parcel in) {
@@ -46,6 +59,8 @@ public class Report implements Parcelable {
         Status = in.readString();
         incidentType = in.readString();
         reportDate=in.readLong();
+        terminalId = in.readString();
+        address = in.readString();
     }
 
     public static final Creator<Report> CREATOR = new Creator<Report>() {
@@ -82,6 +97,8 @@ public class Report implements Parcelable {
         parcel.writeString(Status);
         parcel.writeString(incidentType);
         parcel.writeLong(reportDate);
+        parcel.writeString(terminalId);
+        parcel.writeString(address);
     }
 
     public String getName() {
@@ -206,5 +223,13 @@ public class Report implements Parcelable {
 
     public static Creator<Report> getCREATOR() {
         return CREATOR;
+    }
+
+    public String getTerminalId() {
+        return terminalId;
+    }
+
+    public void setTerminalId(String terminalId) {
+        this.terminalId = terminalId;
     }
 }

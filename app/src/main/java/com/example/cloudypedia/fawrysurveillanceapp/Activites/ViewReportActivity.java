@@ -26,7 +26,8 @@ import java.util.Date;
 
 public class ViewReportActivity extends AppCompatActivity {
 
-    public TextView gisLocation, locationtxt, name, merchantId, salesId, salesName, salesEmail, barcode, date , comment ,type  ,status;
+    public TextView gisLocation, locationtxt, name, merchantId, salesId, salesName, salesEmail, barcode, date
+            , comment ,type ,terminalId  , address,status;
 
     public Report report;
     public  Button range , showImage;
@@ -34,6 +35,7 @@ public class ViewReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_report);
+        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
         Intialize_view();
 
     }
@@ -50,7 +52,7 @@ public class ViewReportActivity extends AppCompatActivity {
         locationtxt.setText("موقع التاجر : " + report.getLocation());
 
         merchantId = (TextView) findViewById(R.id.MerchantID_txt);
-        merchantId.setText("رقم التاجر : " + report.getTerminalSerial());
+        merchantId.setText("الباركود : " + report.getTerminalSerial());
 
         salesId = (TextView) findViewById(R.id.salesId_txt);
         salesId.setText("رقم المندوب : " + report.getSalesID());
@@ -62,7 +64,13 @@ public class ViewReportActivity extends AppCompatActivity {
         salesEmail.setText("بريد المندوب : " + report.getSalesEmail());
 
         barcode = (TextView) findViewById(R.id.barcode_txt);
-        barcode.setText(" قيمة الباركود : " + report.getBarcode());
+        barcode.setText("قيمة الباركود : " + report.getBarcode());
+
+        terminalId = (TextView) findViewById(R.id.TerminalID);
+        terminalId.setText(" رقم التاجر : " + report.getTerminalId());
+
+        address = (TextView) findViewById(R.id.address_txt);
+        address.setText("العنوان : " + report.getAddress());
 
         date = (TextView) findViewById(R.id.date_txt);
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy hh:mm a");//EEEE, MMMM dd, yyyy

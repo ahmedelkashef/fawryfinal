@@ -17,6 +17,7 @@ public class Merchant implements Parcelable{
     private String address;
     private String phone;
     private String terminalID;
+    private String terminalSerial;
     private String merchantType;
 
     public Merchant( double latitude,double longitude, String name) {
@@ -32,10 +33,19 @@ public class Merchant implements Parcelable{
         address = in.readString();
         phone = in.readString();
         terminalID = in.readString();
+        terminalSerial = in.readString();
         merchantType = in.readString();
     }
 
     public Merchant() {
+    }
+
+    public String getTerminalSerial() {
+        return terminalSerial;
+    }
+
+    public void setTerminalSerial(String terminalSerial) {
+        this.terminalSerial = terminalSerial;
     }
 
     public double getLongitude() {
@@ -108,6 +118,7 @@ public class Merchant implements Parcelable{
         parcel.writeString(phone);
         parcel.writeString(terminalID);
         parcel.writeString(merchantType);
+        parcel.writeString(terminalSerial);
     }
     public static final Creator<Merchant> CREATOR = new Creator<Merchant>() {
         @Override

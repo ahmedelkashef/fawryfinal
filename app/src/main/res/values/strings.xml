@@ -6,7 +6,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_text">تسجيل الدخول</string>
     <!--  <string name="error_gps_provider">GPS can not be located , please make sure your GPS is enabled </string>  -->
-    <string name="error_gps_provider"> لم يتم تحديد موقعك , من فضلك تاكد ان ال GPS مفعل</string>
+    <string name="error_gps_provider"> لم يتم تحديد موقعك , من فضلك اضغط علي الاعدادات لتفعيل الGPS </string>
     <string name="dialog_title_gps">خطأ في تحديد الموقع</string>
 
     <string name="error_network_provider"> غير متصل بالانترنت , من فضلك تأكد من الاتصال بالانترنت</string>

@@ -16,10 +16,17 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cloudypedia.fawrysurveillanceapp.Activites.MainActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.Activites.SignInActivity;
 
 import org.json.JSONException;
@@ -549,6 +556,32 @@ public class Utility {
         locationData.put("customField" , customFields);
 
         SyncService.startActionUploadData(context, locationData);
+    }
+
+    public static void  setActionBar(ActionBar actionBar , final Context context) {
+        // TODO Auto-generated method stub
+        LayoutInflater inflator = (LayoutInflater) context .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflator.inflate(R.layout.actionbar, null);
+
+        ImageButton homebtn = (ImageButton) v.findViewById(R.id.homeButton);
+
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        homebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, MainActivity.class);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
+            }
+        });
+        actionBar.setCustomView(v);
+
     }
     public static boolean deleteFile(Context context, String fileName){
         File file = new File(context.getFilesDir() + "/" + fileName);

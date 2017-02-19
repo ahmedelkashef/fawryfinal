@@ -54,12 +54,22 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/address_txt"
+                    android:hint="عنوان"
+                    android:fontFamily="sans-serif"
+                    android:textSize="18sp"
+                    android:layout_weight="0.05"
+                    android:textColor="@android:color/holo_orange_light"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/MerchantID_txt"
                     android:hint="Merchant ID "
                     android:fontFamily="sans-serif"
                     android:textSize="18sp"
                     android:layout_weight="0.05"
                     android:textColor="@android:color/holo_orange_light"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -154,9 +164,18 @@
                 android:fontFamily="sans-serif"
                 android:textSize="18sp"
                 android:layout_weight="0.05"
-                android:text="Barcode Value : "
+                android:text="قيمةالباركود : "
                 android:textColor="@android:color/holo_orange_light"
                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/TerminalID"
+                android:hint="رقم الماكينة :"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:layout_weight="0.05"
+                android:textColor="@android:color/holo_orange_light"/>
 
 
             <View

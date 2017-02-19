@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +19,16 @@ import com.example.cloudypedia.fawrysurveillanceapp.R;
  */
 public class AdressDialog extends DialogFragment {
 
-    public enum TYPE {ADDRESS, TERMINALNO}
+    public  Location currentLocation;
 
-    public void setType(TYPE type) {
-        this.type = type;
+    public Location getCurrentLocation() {
+        return currentLocation;
     }
 
-    private TYPE type = TYPE.ADDRESS;
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -47,7 +51,7 @@ public class AdressDialog extends DialogFragment {
                         progressDialog = ProgressDialog.show(AdressDialog.this.getActivity(), "" ,"جارى التحميل, انتظر من فضلك...", true);
 
                         Controller controller = new Controller(AdressDialog.this.getActivity(), progressDialog);
-                        controller.findBranchByTerminalNo(adress.trim());
+                        controller.findBranchByTerminalNo(adress.trim(),currentLocation);
 
 
                     }

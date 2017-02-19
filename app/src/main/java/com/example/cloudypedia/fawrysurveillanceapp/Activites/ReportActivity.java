@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +21,7 @@ import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.Alert_Dialog;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import org.json.JSONException;
@@ -30,14 +31,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public  class ReportActivity extends AppCompatActivity {
+public class ReportActivity extends AppCompatActivity {
 
-  public   TextView gisLocation, locationtxt, name, merchantId, salesId, salesName, salesEmail, terminalID, date;
-    public  Button range, BarcodeBtn, save, takephoto;
-    public   Report report;
+    public TextView gisLocation, locationtxt, name, merchantId, salesId, salesName, salesEmail, barcodeTxt, date , address,
+            terminalId;
+    public Button range, BarcodeBtn, save, takephoto;
+    public Report report;
     public double Range;
-    public   Location location;
-    public String barcodetxt ;
+    public Location location;
+    public String barcodetxt;
     private ImageView imageView;
     public Bitmap imgbitmap;
     public EditText comment;
@@ -50,14 +52,16 @@ public  class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reportlayout);
-
         if (savedInstanceState == null) {
             barcodetxt = "";
 
         } else {
             barcodetxt = savedInstanceState.getString("barcodetxt");
         }
+        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
+     // new FetchMetadataTask().execute(Utility.getStringPreference(ReportActivity.this, Utility.PREFS_USER_ID_TOKEN));
         Intialize_view();
+
     }
 
     @Override
@@ -68,8 +72,12 @@ public  class ReportActivity extends AppCompatActivity {
 
     void Intialize_view() {
         Intialize_data();
+
+
         name = (TextView) findViewById(R.id.name_txt);
         name.setText("اسم الموقع : " + report.getName());
+
+
         gisLocation = (TextView) findViewById(R.id.GISLocation_txt);
         gisLocation.setText("موقعك الحالي : " + report.getGISLocation());
 
@@ -77,7 +85,10 @@ public  class ReportActivity extends AppCompatActivity {
         locationtxt.setText("موقع التاجر : " + report.getLocation());
 
         merchantId = (TextView) findViewById(R.id.MerchantID_txt);
-        merchantId.setText("رقم التاجر : " + report.getTerminalSerial());
+        merchantId.setText("الباركود : " + report.getTerminalSerial());
+
+        terminalId = (TextView) findViewById(R.id.TerminalID);
+        terminalId.setText("رقم التاجر : " + report.getTerminalId());
 
         salesId = (TextView) findViewById(R.id.salesId_txt);
         salesId.setText("رقم المندوب : " + report.getSalesID());
@@ -88,8 +99,11 @@ public  class ReportActivity extends AppCompatActivity {
         salesEmail = (TextView) findViewById(R.id.salesEmail_txt);
         salesEmail.setText("بريد المندوب : " + report.getSalesEmail());
 
-        terminalID = (TextView) findViewById(R.id.TerminalID);
-        terminalID.setText(" قيمة الباركود : " + barcodetxt);
+        barcodeTxt = (TextView) findViewById(R.id.barcode);
+        barcodeTxt.setText(" قيمة الباركود : " + barcodetxt);
+
+        address = (TextView) findViewById(R.id.address_txt);
+        address.setText("العنوان : " + report.getAddress());
 
         date = (TextView) findViewById(R.id.date_txt);
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy hh:mm a");//EEEE, MMMM dd, yyyy
@@ -138,13 +152,10 @@ public  class ReportActivity extends AppCompatActivity {
                     if (imgbitmap == null) {
                         newDialog.photo = "لا يوجد صورة";
                     }
-                    if( !report.getTerminalSerial().equals( barcodetxt))
-                    {
+                    if (!report.getTerminalSerial().equals(barcodetxt)) {
                         if (barcodetxt.isEmpty() || barcodetxt == "لا يوجد بار كود") {
                             newDialog.barcode = "لا يوجد  باركود";
-                        }
-                        else
-                        {
+                        } else {
                             newDialog.barcode = "الباركود غير متطابق";
                         }
                     }
@@ -154,13 +165,15 @@ public  class ReportActivity extends AppCompatActivity {
 
                         newDialog.range = "المسافة بعيدة";
                     }
+                    report.setComment(comment.getText().toString());
                     jsonObject = setJsonObject();
                     newDialog.reportActivity = ReportActivity.this;
                     newDialog.show(getFragmentManager(), "انذار");
                 } else {
                     checkStatus();
                     try {
-                        report.setComment( comment.getText().toString());
+
+                        report.setComment(comment.getText().toString());
                         jsonObject = setJsonObject();
                         Utility.uploadReport(getApplicationContext(),
                                 imgbitmap,
@@ -168,12 +181,12 @@ public  class ReportActivity extends AppCompatActivity {
                                 location.getLongitude(),
                                 location.getLatitude(),
                                 report.getName(),
-                                report.getStatus() ,
-                                report.getComment() ,
+                                report.getStatus(),
+                                report.getComment(),
                                 jsonObject.toString());
 
                         //Toast.makeText(getApplicationContext(), " Data Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent( ReportActivity.this , VistsActivity.class);
+                        Intent intent = new Intent(ReportActivity.this, VistsActivity.class);
                         startActivity(intent);
                     } catch (Exception ex) {
                         Toast.makeText(getApplicationContext(), "There is Error ", Toast.LENGTH_SHORT).show();
@@ -200,10 +213,10 @@ public  class ReportActivity extends AppCompatActivity {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
                     barcodetxt = barcode.displayValue;
-                    terminalID.setText("قيمة الباركود : " + barcodetxt);
+                    barcodeTxt.setText("قيمة الباركود : " + barcodetxt);
                 } else {
                     barcodetxt = "لا يوجد بار كود";
-                    terminalID.setText(barcodetxt);
+                    barcodeTxt.setText(barcodetxt);
                 }
             }
 
@@ -234,8 +247,7 @@ public  class ReportActivity extends AppCompatActivity {
 
         report = new Report();
 
-        GPSHandller gpsHandller = new GPSHandller(this);
-        location = gpsHandller.getLocation();
+
 
         Bundle extras = getIntent().getExtras();
         Merchant current_merchant = extras.getParcelable("merchant");
@@ -245,8 +257,8 @@ public  class ReportActivity extends AppCompatActivity {
         //  report = extras.getParcelable("sales");
 
         Range = extras.getDouble("distance");
-
-        report.setName(current_merchant.getName());
+        location =  extras.getParcelable("currentLocation");
+                report.setName(current_merchant.getName());
         report.setLocation(Double.toString(current_merchant.getLatitude()) + " , " + Double.toString(current_merchant.getLongitude()));
 
         if (location != null)
@@ -254,8 +266,8 @@ public  class ReportActivity extends AppCompatActivity {
         else
             Toast.makeText(getApplicationContext(), "خطأ في التواصل .. من فضلك حاول مرة اخري", Toast.LENGTH_SHORT).show();
 
-        report.setTerminalSerial(current_merchant.getTerminalID());
-        report.setRange(Double.toString(Range) );
+        report.setTerminalSerial(current_merchant.getTerminalSerial());
+        report.setRange(Double.toString(Range));
 
     /*        report.setSalesID(sharedpreferences.getString(AppConstants.Id,""));
             report.setSalesName(sharedpreferences.getString(AppConstants.Name,""));
@@ -265,8 +277,9 @@ public  class ReportActivity extends AppCompatActivity {
         report.setSalesName(Utility.getPreferredName(this));
         report.setSalesEmail(Utility.getPreferredEmail(this));
         //report.setTerminalID();
-        report.setStatus( "غير ناجحة");
-
+        report.setStatus("غير ناجحة");
+        report.setTerminalId(current_merchant.getTerminalID());
+        report.setAddress(current_merchant.getAddress());
 
     }
 
@@ -284,9 +297,12 @@ public  class ReportActivity extends AppCompatActivity {
             jsonObject.put("incidentType", spinner.getSelectedItem().toString());
             jsonObject.put("barcode", barcodetxt);
             jsonObject.put("salesName", report.getSalesName());
-            jsonObject.put("salesId",report.getSalesID());
-            jsonObject.put("location" , report.getLocation());
-            jsonObject.put("terminalSerial" , report.getTerminalSerial());
+            jsonObject.put("salesId", report.getSalesID());
+            jsonObject.put("location", report.getLocation());
+            jsonObject.put("terminalSerial", report.getTerminalSerial());
+            jsonObject.put("terminalId", report.getTerminalId());
+            jsonObject.put("address", report.getAddress());
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -297,13 +313,12 @@ public  class ReportActivity extends AppCompatActivity {
     }
 
 
-    public void checkStatus()
-    {
-        if(Range <= 100.0 && report.getTerminalSerial() == barcodetxt)
-            report.setStatus("ناجحة") ;
-        else if (Range > 100.0 )
+    public void checkStatus() {
+        if (Range <= 100.0 && report.getTerminalSerial() == barcodetxt)
+            report.setStatus("ناجحة");
+        else if (Range > 100.0)
             report.setStatus("غير ناجحة (المسافة تعدت 100 متر)");
-        else if ( report.getTerminalSerial() != barcodetxt)
+        else if (report.getTerminalSerial() != barcodetxt)
             report.setStatus("غير ناجحة (الباركود غير مطابق)");
         else
             report.setStatus("غير ناجحة");
@@ -312,10 +327,130 @@ public  class ReportActivity extends AppCompatActivity {
     }
 
 
-
-
-
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+ /*   public class FetchMetadataTask extends AsyncTask<String, String, Map<String, CustomFieldEntry>> {
 
+        private final String LOG_TAG = VistsActivity.FetchVistsTask.class.getSimpleName();
+
+        @Override
+        protected void onPreExecute() {
+
+            Utility.showProgressDialog("جاري التحميل , انتظر من فضلك...", ReportActivity.this);
+        }
+
+        private Map<String, CustomFieldEntry> getLocationDataFromJson(String ReportJsonStr)
+                throws JSONException {
+
+
+            JSONObject Json = new JSONObject(ReportJsonStr);
+            JSONObject itemsJson = Json.getJSONObject("items");
+
+            JSONObject customFields = itemsJson.getJSONObject("customFields");
+            //   Map<String,Map<String,Object>> customFields  = jsonArray.getJSONObject("customFields");
+
+            Map<String, CustomFieldEntry> customFieldEntryMap = new HashMap<>();
+            Map<CustomFieldEntry, String> x;
+
+            Iterator<String> keys = customFields.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+                JSONObject cfe = customFields.getJSONObject(key);
+                String displayName = cfe.getString("displayName");
+                String predefinedValues = cfe.getString("predefinedValues");
+                boolean indexed = cfe.getBoolean("indexed");
+
+                customFieldEntryMap.put(key, new CustomFieldEntry(displayName, predefinedValues, indexed));
+            }
+
+            return customFieldEntryMap;
+        }
+
+        @Override
+        protected Map<String, CustomFieldEntry> doInBackground(String... strings) {
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+            // Will contain the raw JSON response as a string.
+            String ReportJsonStr = null;
+
+            try {
+                AppConstants.initSecuredConnection();
+
+                String[] PARMETER_URL = null;
+
+                Uri BuiltUri;
+
+                PARMETER_URL = new String[1];
+                PARMETER_URL[0] = "userIdToken";
+
+                //String encodedemail = Uri.encode(strings[1],"UTF-8");
+                //   String encodedemail  = URLEncoder.encode(strings[1],"UTF-8");
+                BuiltUri = Uri.parse(AppConstants.GET_CHECKIN_METADATA).buildUpon().appendQueryParameter(PARMETER_URL[0], strings[0])
+                        .build();
+
+
+                URL url = new URL(BuiltUri.toString());
+                Log.v("uri=", BuiltUri.toString());
+                // Create the request to theMovieDb, and open the connectio
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line + "\n");
+                }
+                if (buffer.length() == 0) {
+                    return null;
+                }
+
+                ReportJsonStr = buffer.toString();
+                Log.v(LOG_TAG, "JSON String = " + ReportJsonStr);
+            } catch (IOException e) {
+                return null;
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (KeyManagementException e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                    }
+                }
+            }
+            try {
+                return getLocationDataFromJson(ReportJsonStr);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, CustomFieldEntry> metadata) {
+
+            Utility.dismissProgressDialog();
+            if (metadata != null) {
+
+            } else {
+                Toast.makeText(ReportActivity.this, "خطأ في تحميل البيانات", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }*/
 }

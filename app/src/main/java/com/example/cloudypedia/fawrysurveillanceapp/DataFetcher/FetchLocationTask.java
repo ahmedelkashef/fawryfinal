@@ -14,7 +14,6 @@ import com.example.cloudypedia.fawrysurveillanceapp.Activites.MapsActivity;
 import com.example.cloudypedia.fawrysurveillanceapp.AppConstants;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
-import com.example.cloudypedia.fawrysurveillanceapp.Fragments.MainFragment;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 
 import org.json.JSONArray;
@@ -67,7 +66,8 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
 
             if (!jsonObject.get("indexedCustomFields").equals(null)) {
                 JSONObject indexedCustomFields = (JSONObject) jsonObject.get("indexedCustomFields");
-                m.setTerminalID(indexedCustomFields.get("TerminalSerial").toString());
+                m.setTerminalID(indexedCustomFields.get("TerminalFawryID").toString());
+                m.setTerminalSerial(indexedCustomFields.get("TerminalSerial").toString());
             }
             if (!jsonObject.get("unIndexedCustomFields").equals(null)) {
                 JSONObject unindexedCustomFields = (JSONObject) jsonObject.get("unIndexedCustomFields");
@@ -91,19 +91,7 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
         // Will contain the raw JSON response as a string.
         String locationsJsonStr = null;
 
-        final GPSHandller gpsHandller = new GPSHandller(context);
-        Location location = gpsHandller.getLocation();
 
-        if(location!=null) {
-            currentLat = location.getLatitude();
-            currentLong = location.getLongitude();
-
-        }
-        else {
-            Utility.showMessage("خطأ في التواصل .. من فضلك حاول مرة اخري" ,context);
-         /*   Toast.makeText(context, "خطأ في التواصل .. من فضلك حاول مرة اخري", Toast.LENGTH_SHORT).show();
-*/
-        }
         try {
             AppConstants.initSecuredConnection();
 
@@ -112,12 +100,19 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
             String[] PARMETER_URL = null;
             Uri BuiltUri;
             if (params[0] == "terminalId") {
-                CONTROLLER_URL = "getBranchbyTerminalId";
-                PARMETER_URL = new String[1];
-                PARMETER_URL[0] = "terminalId";
-                BuiltUri = Uri.parse(BASE_URL + CONTROLLER_URL).buildUpon().appendQueryParameter(PARMETER_URL[0], params[1])
-                        .build();
+
+                    currentLat = Double.parseDouble( params[2]);
+                    currentLong = Double.parseDouble( params[3]);;
+                    CONTROLLER_URL = "getBranchbyTerminalId";
+                    PARMETER_URL = new String[1];
+                    PARMETER_URL[0] = "terminalId";
+                    BuiltUri = Uri.parse(BASE_URL + CONTROLLER_URL).buildUpon().appendQueryParameter(PARMETER_URL[0], params[1])
+                            .build();
+
+
             } else {
+                currentLat = Double.parseDouble(params[1]);
+                currentLong = Double.parseDouble(params[2]);
 
                 CONTROLLER_URL = "getBranchesbyNearest";
                 PARMETER_URL = new String[2];
@@ -187,7 +182,7 @@ public class FetchLocationTask extends AsyncTask<String, String , Merchant[]> {
 
 
         if (Merchants == null) {
-                Toast.makeText(context, "Error in Fetching Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "خطأ في تحميل البيانات", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
 
         } else {

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 import com.squareup.picasso.Picasso;
 
 public class PhotoActivity extends AppCompatActivity {
@@ -19,7 +20,7 @@ public class PhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
-
+        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
         photoimageview = (ImageView) findViewById(R.id.photoimageView);
         nophototxt = (TextView) findViewById(R.id.phototxt);
 
