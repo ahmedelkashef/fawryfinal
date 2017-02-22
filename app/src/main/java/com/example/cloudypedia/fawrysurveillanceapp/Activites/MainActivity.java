@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Fragments.MainFragment;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
+import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         mStatusTextView = (TextView) findViewById(R.id.status);
         getFragmentManager().beginTransaction()
                 .add(android.R.id.content, new MainFragment()).commit();
+        Utility.setActionBar(getSupportActionBar(),this ,"sign");
     }
   /*  public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

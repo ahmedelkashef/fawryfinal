@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import com.google.android.gms.common.api.Status;
  */
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
+        GoogleApiClient.ConnectionCallbacks,
         View.OnClickListener {
 
     private static final String TAG = "SignInActivity";
@@ -44,12 +46,14 @@ public class SignInActivity extends AppCompatActivity implements
     private ProgressDialog mProgressDialog;
     GoogleSignInOptions gso;
     GoogleSignInAccount acct;
-
+    boolean isreturnfromhome ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sigin_in);
+
+        isreturnfromhome = getIntent().getBooleanExtra("isreturnedfromhome",false);
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
@@ -58,9 +62,13 @@ public class SignInActivity extends AppCompatActivity implements
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.go_to_MainActivity).setOnClickListener(this);
 
-        if(Utility.getPreferredEmail(this) != null)
+        if(Utility.getPreferredEmail(this) != null &&isreturnfromhome==false)
         {
             goToMainActivity();
+        }
+        if(isreturnfromhome){
+            updateUI(true);
+
         }
 
         // [START configure_signin]
@@ -88,6 +96,7 @@ public class SignInActivity extends AppCompatActivity implements
 
         SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
+
         // [END customize_button]
     }
 
@@ -96,7 +105,10 @@ public class SignInActivity extends AppCompatActivity implements
         super.onStart();
         Utility.dismissProgressDialog();
         if (!mGoogleApiClient.isConnected())
+        {
             mGoogleApiClient.connect();
+
+        }
     }
 
 
@@ -124,17 +136,18 @@ public class SignInActivity extends AppCompatActivity implements
                 firstTime = true;
 
             acct = result.getSignInAccount();
-
-            Utility.setPreferredEmail(SignInActivity.this , acct.getEmail() );
-            Utility.setPreferredId(SignInActivity.this , acct.getId());
-            Utility.setPreferredName(SignInActivity.this , acct.getDisplayName());
-            Utility.setPreferredIdToken(SignInActivity.this , acct.getIdToken());
-
+            if(acct.getEmail().toLowerCase().contains("@fawry-retail.com"))
+            {
+                Utility.setPreferredEmail(SignInActivity.this, acct.getEmail());
+                Utility.setPreferredId(SignInActivity.this, acct.getId());
+                Utility.setPreferredName(SignInActivity.this, acct.getDisplayName());
+                Utility.setPreferredIdToken(SignInActivity.this, acct.getIdToken());
+            }
             if(firstTime){
                 LoadSettingTask loadSettingTask = new LoadSettingTask(this);
                 loadSettingTask.execute();
             }
-            else {
+            else  {
                 Utility.showProgressDialog(getString(R.string.loading) , this);
                 goToMainActivity();
             }
@@ -195,6 +208,8 @@ public class SignInActivity extends AppCompatActivity implements
         Toast.makeText(getApplicationContext(), connectionResult.toString(), Toast.LENGTH_SHORT).show();
     }
 
+
+
     private void updateUI(boolean signedIn) {
         if (signedIn) {
             mStatusTextView.setText(getString(R.string.signed_in_fmt) + Utility.getPreferredName(this));
@@ -221,5 +236,18 @@ public class SignInActivity extends AppCompatActivity implements
                 goToMainActivity();
                 break;
         }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if(isreturnfromhome == true)
+        {
+            signOut();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
     }
 }

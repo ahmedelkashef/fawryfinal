@@ -35,7 +35,7 @@ public class ViewReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_report);
-        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
+        Utility.setActionBar(getSupportActionBar(),this,"home");
         Intialize_view();
 
     }
@@ -43,7 +43,7 @@ public class ViewReportActivity extends AppCompatActivity {
         Intialize_data();
 
         name = (TextView) findViewById(R.id.name_txt);
-        name.setText("اسم الموقع : " + report.getName().trim());
+        name.setText("اسم التاجر : " + report.getName().trim());
 
         gisLocation = (TextView) findViewById(R.id.GISLocation_txt);
         gisLocation.setText("موقعك الحالي : " + report.getGISLocation());
@@ -54,8 +54,8 @@ public class ViewReportActivity extends AppCompatActivity {
         merchantId = (TextView) findViewById(R.id.MerchantID_txt);
         merchantId.setText("الباركود : " + report.getTerminalSerial());
 
-        salesId = (TextView) findViewById(R.id.salesId_txt);
-        salesId.setText("رقم المندوب : " + report.getSalesID());
+      /*  salesId = (TextView) findViewById(R.id.salesId_txt);
+        salesId.setText("رقم المندوب : " + report.getSalesID());*/
 
         salesName = (TextView) findViewById(R.id.salesName_txt);
         salesName.setText("اسم المندوب : " + report.getSalesName());

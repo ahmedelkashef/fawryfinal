@@ -131,7 +131,7 @@ public class LoadSettingTask extends AsyncTask<String, Integer, Boolean> {
         Utility.dismissProgressDialog();
 
         String msg;
-        if(result){
+        if(result&& Utility.getPreferredEmail(activity) != null){
            //SharedPreferences sharedpreferences = activity.getSharedPreferences(AppConstants.MyPREFERENCES, Context.MODE_PRIVATE);
             msg = "مرحبا " + Utility.getPreferredName(activity);
            //msg = "Hello " + sharedpreferences.getString(AppConstants.Name,"");

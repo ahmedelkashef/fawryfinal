@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
- public class Alert_Dialog extends DialogFragment {
+
+public class Alert_Dialog extends DialogFragment {
     public String barcode="" , photo="" , range="" ;
     private TextView alerttxt ;
    public   ReportActivity reportActivity;
@@ -63,8 +65,6 @@ import java.util.Date;
             result += range + "\n" ;
         alerttxt.setText(result);
 
-
-
         builder.setTitle("انتبه").setView(view)
                 // Add action buttons
                 .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
@@ -82,7 +82,23 @@ import java.util.Date;
                                 reportActivity.jsonObject.toString());
 
                         progressDialog = ProgressDialog.show(reportActivity, "" ,"جارى  رفع الزيارة , انتظر من فضلك...", true);
+                        Runnable progressRunnable = new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressDialog.cancel();
+                            }
+                        };
+
+                        Handler pdCanceller = new Handler();
+                        pdCanceller.postDelayed(progressRunnable, 6000);
                      ;
+                        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                reportActivity.finish();
+                            }
+                        });
 
                     }
                 })
@@ -91,14 +107,18 @@ import java.util.Date;
                         getDialog().cancel();
                     }
                 });
+
+
         return builder.create();
     }
 
      @Override
      public void onStop()
-     {super.onStop();
-         progressDialog.dismiss();
+     {
+         super.onStop();
+
      }
+
  }
 
 

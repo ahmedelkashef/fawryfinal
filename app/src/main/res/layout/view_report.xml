@@ -130,7 +130,7 @@
                     android:hint="Email"
                     android:layout_weight="0.05"
                     android:textColor="@android:color/holo_orange_light"/>
-
+<!--
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                     android:textSize="18sp"
                     android:hint="ID"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:textColor="@android:color/holo_orange_light"/>-->
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

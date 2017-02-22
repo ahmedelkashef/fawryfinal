@@ -10,11 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="8dp"
     tools:context="com.example.cloudypedia.fawrysurveillanceapp.Activites.MainActivity"
-    android:background="@drawable/bgapp">
+    android:background="@drawable/bgapp"
+    android:layout_gravity="center">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo"
-        android:id="@+id/imageView" />
+
 </RelativeLayout>

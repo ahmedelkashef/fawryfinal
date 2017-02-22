@@ -558,28 +558,53 @@ public class Utility {
         SyncService.startActionUploadData(context, locationData);
     }
 
-    public static void  setActionBar(ActionBar actionBar , final Context context) {
+    public static void  setActionBar(ActionBar actionBar, final Activity context, String imageButton) {
         // TODO Auto-generated method stub
         LayoutInflater inflator = (LayoutInflater) context .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.actionbar, null);
 
-        ImageButton homebtn = (ImageButton) v.findViewById(R.id.homeButton);
+        if(imageButton == "home") {
+            ImageButton homebtn = (ImageButton) v.findViewById(R.id.homeButton);
+            homebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                    Intent intent = new Intent(context, MainActivity.class);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+
+                }
+            });
+        }
+        else if (imageButton == "sign")
+        {
+            ImageButton sign = (ImageButton) v.findViewById(R.id.homeButton);
+            sign.setImageResource(R.drawable.signinbig);
+            sign.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(context, SignInActivity.class);
+                            intent.putExtra("isreturnedfromhome" ,true);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(intent);
+                        }
+                    });
+
+
+
+                }
+            });
+        }
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
-        homebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent intent = new Intent(context, MainActivity.class);
-
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-
-            }
-        });
         actionBar.setCustomView(v);
 
     }

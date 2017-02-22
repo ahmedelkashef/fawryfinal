@@ -1,6 +1,5 @@
 package com.example.cloudypedia.fawrysurveillanceapp.Activites;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,7 +19,7 @@ public class PhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
-        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
+        Utility.setActionBar(getSupportActionBar(),this, "home");
         photoimageview = (ImageView) findViewById(R.id.photoimageView);
         nophototxt = (TextView) findViewById(R.id.phototxt);
 

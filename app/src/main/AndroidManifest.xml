@@ -54,7 +54,7 @@
 
         <activity android:name=".Activites.IncidentActivity" />
         <activity android:name=".Activites.ScanBarcodeActivity" />
-        <activity android:name=".Activites.VistsActivity" android:noHistory="true" />
+        <activity android:name=".Activites.VistsActivity"  />
         <activity android:name=".Activites.ReportActivity"  />
         <activity android:name=".Activites.ViewReportActivity" android:noHistory="true"></activity>
 

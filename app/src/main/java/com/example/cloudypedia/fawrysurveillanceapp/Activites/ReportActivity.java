@@ -14,14 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.Dialogs.Alert_Dialog;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import org.json.JSONException;
@@ -58,7 +56,7 @@ public class ReportActivity extends AppCompatActivity {
         } else {
             barcodetxt = savedInstanceState.getString("barcodetxt");
         }
-        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
+        Utility.setActionBar(getSupportActionBar(),this, "home");
      // new FetchMetadataTask().execute(Utility.getStringPreference(ReportActivity.this, Utility.PREFS_USER_ID_TOKEN));
         Intialize_view();
 
@@ -75,7 +73,7 @@ public class ReportActivity extends AppCompatActivity {
 
 
         name = (TextView) findViewById(R.id.name_txt);
-        name.setText("اسم الموقع : " + report.getName());
+        name.setText("اسم التاجر : " + report.getName());
 
 
         gisLocation = (TextView) findViewById(R.id.GISLocation_txt);
@@ -90,8 +88,8 @@ public class ReportActivity extends AppCompatActivity {
         terminalId = (TextView) findViewById(R.id.TerminalID);
         terminalId.setText("رقم التاجر : " + report.getTerminalId());
 
-        salesId = (TextView) findViewById(R.id.salesId_txt);
-        salesId.setText("رقم المندوب : " + report.getSalesID());
+   /*     salesId = (TextView) findViewById(R.id.salesId_txt);
+        salesId.setText("رقم المندوب : " + report.getSalesID());*/
 
         salesName = (TextView) findViewById(R.id.salesName_txt);
         salesName.setText("اسم المندوب : " + report.getSalesName());
@@ -188,6 +186,7 @@ public class ReportActivity extends AppCompatActivity {
                         //Toast.makeText(getApplicationContext(), " Data Uploaded Successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ReportActivity.this, VistsActivity.class);
                         startActivity(intent);
+                        finish();
                     } catch (Exception ex) {
                         Toast.makeText(getApplicationContext(), "There is Error ", Toast.LENGTH_SHORT).show();
                     }
@@ -273,7 +272,7 @@ public class ReportActivity extends AppCompatActivity {
             report.setSalesName(sharedpreferences.getString(AppConstants.Name,""));
             report.setSalesEmail(sharedpreferences.getString(AppConstants.Email,""));*/
 
-        report.setSalesID("12345");
+     //   report.setSalesID("12345");
         report.setSalesName(Utility.getPreferredName(this));
         report.setSalesEmail(Utility.getPreferredEmail(this));
         //report.setTerminalID();
@@ -297,7 +296,7 @@ public class ReportActivity extends AppCompatActivity {
             jsonObject.put("incidentType", spinner.getSelectedItem().toString());
             jsonObject.put("barcode", barcodetxt);
             jsonObject.put("salesName", report.getSalesName());
-            jsonObject.put("salesId", report.getSalesID());
+          //  jsonObject.put("salesId", report.getSalesID());
             jsonObject.put("location", report.getLocation());
             jsonObject.put("terminalSerial", report.getTerminalSerial());
             jsonObject.put("terminalId", report.getTerminalId());

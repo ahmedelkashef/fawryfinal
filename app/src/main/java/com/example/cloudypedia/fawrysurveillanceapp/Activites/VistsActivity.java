@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.example.cloudypedia.fawrysurveillanceapp.AppConstants;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Rowcontent;
-import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.FetchLocationTask;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
 
@@ -83,7 +82,7 @@ public class VistsActivity extends AppCompatActivity {
         {
             Reports = (Report[]) savedInstanceState.getParcelableArray("ReportKey");
         }
-        Utility.setActionBar(getSupportActionBar(),getApplicationContext());
+        Utility.setActionBar(getSupportActionBar(),this, "home");
         IntializeViews();
 
         new  FetchVistsTask().execute( Utility.getStringPreference(VistsActivity.this , Utility.PREFS_USER_ID_TOKEN) , Long.toString(dateTime.getTimeInMillis()));
@@ -251,7 +250,7 @@ public class VistsActivity extends AppCompatActivity {
                 if (!jsonObject.get("indexedCustomFields").equals(null)) {
                     JSONObject indexedCustomFields = (JSONObject) jsonObject.get("indexedCustomFields");
                     r.setBarcode(indexedCustomFields.get("barcode").toString());
-                    r.setSalesID(indexedCustomFields.get("salesId").toString());
+                  //  r.setSalesID(indexedCustomFields.get("salesId").toString());
                     r.setRange(indexedCustomFields.get("range").toString());
                     r.setSalesName(indexedCustomFields.get("salesName").toString());
                     r.setIncidentType(indexedCustomFields.get("incidentType").toString());
