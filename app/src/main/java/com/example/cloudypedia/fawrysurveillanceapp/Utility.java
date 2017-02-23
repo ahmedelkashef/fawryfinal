@@ -15,8 +15,9 @@ import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
+
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ import javax.net.ssl.SSLSocketFactory;
 public class Utility {
     private static String TAG = Utility.class.getSimpleName();
     public static final String PREFS_NAME = "ABCPrefsFile";
-
+    public static final String   PREFS_EMPLOYEE_ID = "employeeId";
     public static final String PREFS_TRACKING_ENABLE = "trackingEnabled";//boolean
     public static final String PREFS_ATTENDANCE_ENABLE = "attendanceEnabled";//boolean
     public static final String PREFS_TRACKING_INTERVAL = "trackingInterval";//long in seconds
@@ -184,7 +185,7 @@ public class Utility {
     }
     public static String getPreferredId(Context context) {
         SharedPreferences prefs = getPrivateSharedPreferences(context);
-        return prefs.getString(Utility.IdToken,
+        return prefs.getString(Utility.PREFS_EMPLOYEE_ID,
                 null);
     }
 
@@ -203,7 +204,7 @@ public class Utility {
     public static void setPreferredId(Context context, String id) {
         SharedPreferences prefs = getPrivateSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(Utility.IdToken, id);
+        editor.putString(Utility.PREFS_EMPLOYEE_ID, id);
         editor.commit();
     }
     public static String getStringPreference(Context context, String key) {
@@ -320,10 +321,10 @@ public class Utility {
     }
 
 
-    public static void sendNotification(Context context, String title, String messageBody) {
+/*    public static void sendNotification(Context context, String title, String messageBody) {
         Intent intent = new Intent(context, SignInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 *//**//* Request code *//**//*, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -346,8 +347,8 @@ public class Utility {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-    }
+        *//*notificationManager.notify(0 *//* ID of notification *//*, notificationBuilder.build());
+    }*/
 
 
     public final static String IN = "IN";
@@ -437,14 +438,18 @@ public class Utility {
 
         if (response == null)
             return false;
-
+/*
         final String KEY_SETTINGS = "settings";
         final String KEY_LOCATION = "workLocation";
-        final String KEY_WORK_SHIFT = "workShift";
+        final String KEY_WORK_SHIFT = "workShift";*/
+        final String KEY_EMPLOYEE_ID = "employeeId";
 
         try {
             JSONObject jsonObject = new JSONObject(response);
             //user id token
+
+            String employeeId = jsonObject.getString("employeeId");
+            Utility.setPreferredId(context,employeeId);
 
             Utility.setStringPreference(context, Utility.PREFS_USER_ID_TOKEN,
                     jsonObject.getString(Utility.PREFS_USER_ID_TOKEN));
@@ -568,19 +573,21 @@ public class Utility {
             homebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    Intent intent = new Intent(context, MainActivity.class);
-
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(intent);
+                        }
+                    });
                 }
             });
         }
         else if (imageButton == "sign")
         {
             ImageButton sign = (ImageButton) v.findViewById(R.id.homeButton);
-            sign.setImageResource(R.drawable.signinbig);
+            sign.setImageResource(R.drawable.signin);
             sign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

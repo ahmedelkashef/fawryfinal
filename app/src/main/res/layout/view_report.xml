@@ -24,7 +24,7 @@
                 android:textSize="30sp"
                 android:textAlignment="center"
                 android:fontFamily="sans-serif"
-                android:textColor="@android:color/holo_orange_light"
+                android:textColor="@color/text_color"
              />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:fontFamily="sans-serif"
                     android:textSize="18sp"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:textColor="@color/text_color" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                     android:fontFamily="sans-serif"
                     android:textSize="18sp"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:textColor="@color/text_color" />
 
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:fontFamily="sans-serif"
                     android:textSize="18sp"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:textColor="@color/text_color" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:fontFamily="sans-serif"
                     android:textSize="18sp"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:textColor="@color/text_color" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                     android:fontFamily="sans-serif"
                     android:textSize="18sp"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:textColor="@color/text_color" />
 
 
                 <TextView
@@ -89,7 +89,7 @@
                     android:fontFamily="sans-serif"
                     android:textSize="18sp"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"
+                    android:textColor="@color/text_color"
                     android:clickable="false"/>
             </LinearLayout>
             <Button
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/holo_orange_light" />
+                android:background="@color/text_color"  />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                     android:textSize="18sp"
                     android:hint="Sales Name"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:textColor="@color/text_color" />
 
 
                 <TextView
@@ -129,8 +129,7 @@
                     android:textSize="18sp"
                     android:hint="Email"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>
-<!--
+                    android:textColor="@color/text_color" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,12 +138,12 @@
                     android:textSize="18sp"
                     android:hint="ID"
                     android:layout_weight="0.05"
-                    android:textColor="@android:color/holo_orange_light"/>-->
+                    android:textColor="@color/text_color" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/holo_orange_light" />
+                android:background="@color/text_color"  />
 
             <TextView
                 android:layout_width="match_parent"
@@ -153,7 +152,7 @@
                 android:padding="5dp"
                 android:text="الماكينة"
                 android:textSize="24sp"
-                android:textColor="@android:color/holo_orange_light"
+                android:textColor="@color/text_color"
                 android:layout_weight="0.05"/>
 
 
@@ -165,7 +164,7 @@
                 android:textSize="18sp"
                 android:layout_weight="0.05"
                 android:text="قيمةالباركود : "
-                android:textColor="@android:color/holo_orange_light"
+                android:textColor="@color/text_color"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -175,7 +174,7 @@
                 android:fontFamily="sans-serif"
                 android:textSize="18sp"
                 android:layout_weight="0.05"
-                android:textColor="@android:color/holo_orange_light"/>
+                android:textColor="@color/text_color" />
 
 
             <View
@@ -183,7 +182,7 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
                 android:paddingTop="8dp"
-                android:background="@android:color/holo_orange_light" />
+                android:background="@color/text_color"  />
 
             <TextView
                 android:layout_width="match_parent"
@@ -192,7 +191,7 @@
                 android:padding="5dp"
                 android:text="الزيارة"
                 android:textSize="24sp"
-                android:textColor="@android:color/holo_orange_light"
+                android:textColor="@color/text_color"
                 android:layout_weight="0.05"
                 android:id="@+id/textView4" />
             <!--    <Button
@@ -225,7 +224,7 @@
                               android:id="@+id/textView2"
                               android:textAlignment="center"
                               android:textSize="30sp"
-                              android:textColor="@android:color/holo_orange_light"
+                              android:textColor="@color/text_color"
                               android:layout_marginBottom="16dp"/>-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -244,7 +243,7 @@
                         android:id="@+id/type_txt"
 
                         android:textSize="18sp"
-                        android:textColor="@android:color/holo_orange_light" />
+                        android:textColor="@color/text_color"  />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -253,14 +252,14 @@
                         android:textAlignment="textStart"
                         android:layout_gravity="start"
                         android:id="@+id/status_txt"
-                        android:textColor="@android:color/holo_orange_light"
+                        android:textColor="@color/text_color"
                         android:textSize="18sp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="تعليق :"
-                        android:textColor="@android:color/holo_orange_light"
-                        android:textColorHint="@android:color/holo_orange_light"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_color"
                         android:id="@+id/comment_txt"
                         android:textSize="18sp" />
 

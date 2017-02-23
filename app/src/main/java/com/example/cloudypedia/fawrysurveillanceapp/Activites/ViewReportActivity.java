@@ -54,8 +54,8 @@ public class ViewReportActivity extends AppCompatActivity {
         merchantId = (TextView) findViewById(R.id.MerchantID_txt);
         merchantId.setText("الباركود : " + report.getTerminalSerial());
 
-      /*  salesId = (TextView) findViewById(R.id.salesId_txt);
-        salesId.setText("رقم المندوب : " + report.getSalesID());*/
+        salesId = (TextView) findViewById(R.id.salesId_txt);
+        salesId.setText("رقم المندوب : " + report.getSalesID());
 
         salesName = (TextView) findViewById(R.id.salesName_txt);
         salesName.setText("اسم المندوب : " + report.getSalesName());

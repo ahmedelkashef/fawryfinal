@@ -62,13 +62,12 @@ public class SignInActivity extends AppCompatActivity implements
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.go_to_MainActivity).setOnClickListener(this);
 
-        if(Utility.getPreferredEmail(this) != null &&isreturnfromhome==false)
+        if(Utility.getPreferredEmail(this) != null && isreturnfromhome == false)
         {
             goToMainActivity();
         }
         if(isreturnfromhome){
             updateUI(true);
-
         }
 
         // [START configure_signin]
@@ -139,7 +138,7 @@ public class SignInActivity extends AppCompatActivity implements
             if(acct.getEmail().toLowerCase().contains("@fawry-retail.com"))
             {
                 Utility.setPreferredEmail(SignInActivity.this, acct.getEmail());
-                Utility.setPreferredId(SignInActivity.this, acct.getId());
+               //Utility.setPreferredId(SignInActivity.this, acct.getId());
                 Utility.setPreferredName(SignInActivity.this, acct.getDisplayName());
                 Utility.setPreferredIdToken(SignInActivity.this, acct.getIdToken());
             }

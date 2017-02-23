@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#0987bd</color>
+<!--    <color name="colorPrimary">#3F51B5</color>-->
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="my_spinner_text_color">@android:color/holo_orange_light</color>
@@ -12,5 +13,7 @@
     <color name="table_cell_background">#ECEFF1</color>
     <color name="date_color_text">#329fd6</color>
     <color name="background_color">#ffd200</color>
+    <color name="text_color">#ffffff</color>
+
 
 </resources>

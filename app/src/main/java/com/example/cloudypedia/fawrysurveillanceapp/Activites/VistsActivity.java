@@ -250,7 +250,7 @@ public class VistsActivity extends AppCompatActivity {
                 if (!jsonObject.get("indexedCustomFields").equals(null)) {
                     JSONObject indexedCustomFields = (JSONObject) jsonObject.get("indexedCustomFields");
                     r.setBarcode(indexedCustomFields.get("barcode").toString());
-                  //  r.setSalesID(indexedCustomFields.get("salesId").toString());
+                   r.setSalesID(indexedCustomFields.get("salesId").toString());
                     r.setRange(indexedCustomFields.get("range").toString());
                     r.setSalesName(indexedCustomFields.get("salesName").toString());
                     r.setIncidentType(indexedCustomFields.get("incidentType").toString());

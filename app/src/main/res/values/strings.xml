@@ -21,7 +21,7 @@
         <item> اخري </item>
     </string-array>
 
-    <string name="signed_in_fmt">Signed in as: </string>
+    <string name="signed_in_fmt">Signed in as :  </string>
     <string name="signed_in">Signed in</string>
     <string name="signing_in">Signing in…</string>
     <string name="signed_out">Signed out</string>

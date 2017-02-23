@@ -88,8 +88,8 @@ public class ReportActivity extends AppCompatActivity {
         terminalId = (TextView) findViewById(R.id.TerminalID);
         terminalId.setText("رقم التاجر : " + report.getTerminalId());
 
-   /*     salesId = (TextView) findViewById(R.id.salesId_txt);
-        salesId.setText("رقم المندوب : " + report.getSalesID());*/
+        salesId = (TextView) findViewById(R.id.salesId_txt);
+        salesId.setText("رقم المندوب : " + report.getSalesID());
 
         salesName = (TextView) findViewById(R.id.salesName_txt);
         salesName.setText("اسم المندوب : " + report.getSalesName());
@@ -272,7 +272,7 @@ public class ReportActivity extends AppCompatActivity {
             report.setSalesName(sharedpreferences.getString(AppConstants.Name,""));
             report.setSalesEmail(sharedpreferences.getString(AppConstants.Email,""));*/
 
-     //   report.setSalesID("12345");
+        report.setSalesID(Utility.getPreferredId(this));
         report.setSalesName(Utility.getPreferredName(this));
         report.setSalesEmail(Utility.getPreferredEmail(this));
         //report.setTerminalID();
@@ -296,7 +296,7 @@ public class ReportActivity extends AppCompatActivity {
             jsonObject.put("incidentType", spinner.getSelectedItem().toString());
             jsonObject.put("barcode", barcodetxt);
             jsonObject.put("salesName", report.getSalesName());
-          //  jsonObject.put("salesId", report.getSalesID());
+            jsonObject.put("salesId", report.getSalesID());
             jsonObject.put("location", report.getLocation());
             jsonObject.put("terminalSerial", report.getTerminalSerial());
             jsonObject.put("terminalId", report.getTerminalId());
