@@ -587,7 +587,7 @@ public class Utility {
         else if (imageButton == "sign")
         {
             ImageButton sign = (ImageButton) v.findViewById(R.id.homeButton);
-            sign.setImageResource(R.drawable.signin);
+            sign.setImageResource(R.drawable.signinfinal);
             sign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
