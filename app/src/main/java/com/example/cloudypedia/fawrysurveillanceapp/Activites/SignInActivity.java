@@ -75,7 +75,7 @@ public class SignInActivity extends AppCompatActivity implements
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                .requestIdToken(AppConstants.SERVER_CLIENT_ID)
-                .requestEmail()
+               .requestEmail()
                .requestProfile()
    //     .requestServerAuthCode(AppConstants.SERVER_CLIENT_ID)
                 .build();
@@ -211,7 +211,7 @@ public class SignInActivity extends AppCompatActivity implements
 
     private void updateUI(boolean signedIn) {
         if (signedIn) {
-            mStatusTextView.setText(getString(R.string.signed_in_fmt) + Utility.getPreferredName(this));
+            mStatusTextView.setText(getString(R.string.signed_in_fmt) +" "+ Utility.getPreferredName(this));
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
         } else {

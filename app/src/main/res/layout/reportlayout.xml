@@ -109,7 +109,9 @@ android:orientation="vertical">
                 android:layout_height="wrap_content"
                 android:text="Range"
                 android:id="@+id/toggleButton"
-                android:background="@android:color/holo_green_dark" />
+                android:background="@drawable/buttonshape2"
+                android:layout_gravity="center"
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -168,10 +170,14 @@ android:orientation="vertical">
                 android:textColor="@color/text_color"
                 android:layout_weight="0.05"/>
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:id="@+id/barcode_btn"
-                android:text="افحص الباركود"/>
+                android:text="افحص الباركود"
+                android:background="@drawable/buttonshape"
+                android:textColor="@color/button_text_color"
+                />
 
             <TextView
                 android:layout_width="match_parent"
@@ -268,22 +274,27 @@ android:orientation="vertical">
                 </LinearLayout>
 
 
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/photo_btn"
                     android:text="التقط صورة"
+                 android:layout_marginBottom="8dp"
                     android:layout_gravity="center"
+                    android:background="@drawable/buttonshape"
+                    android:textColor="@color/button_text_color"
                     />
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="حفظ الزيارة"
                     android:id="@+id/Save_Incident"
-                    android:visibility="visible"/>
-
+                    android:visibility="visible"
+                    android:background="@drawable/buttonshape"
+                    android:textColor="@color/button_text_color"
+                    />
                 <ImageView
 
                     android:layout_width="match_parent"

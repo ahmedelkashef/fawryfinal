@@ -91,12 +91,12 @@ public class Alert_Dialog extends DialogFragment {
                         };
 
                         Handler pdCanceller = new Handler();
-                        pdCanceller.postDelayed(progressRunnable, 6000);
+                        pdCanceller.postDelayed(progressRunnable, 20000);
                      ;
                         progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                             @Override
                             public void onCancel(DialogInterface dialog) {
-                                reportActivity.finish();
+                                //reportActivity.finish();
                             }
                         });
 

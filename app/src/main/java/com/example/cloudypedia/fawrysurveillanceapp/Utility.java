@@ -449,6 +449,10 @@ public class Utility {
             //user id token
 
             String employeeId = jsonObject.getString("employeeId");
+            if(employeeId.equals("null"))
+            {
+                employeeId = "";
+            }
             Utility.setPreferredId(context,employeeId);
 
             Utility.setStringPreference(context, Utility.PREFS_USER_ID_TOKEN,

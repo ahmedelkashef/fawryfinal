@@ -81,7 +81,7 @@ public class ViewReportActivity extends AppCompatActivity {
         range = (Button) findViewById(R.id.toggleButton);
 
         if (Double.parseDouble(report.getRange()) > 100.0) {
-            range.setBackgroundColor(Color.RED);
+            range.setBackgroundResource(R.drawable.buttonshapered);
         }
 
         range.setText("المسافة : " + report.getRange() + " متر");

@@ -1,10 +1,13 @@
 package com.example.cloudypedia.fawrysurveillanceapp.Activites;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +47,7 @@ public class ReportActivity extends AppCompatActivity {
     private final int CAMERA_REQUEST = 3;
     public Spinner spinner;
     public JSONObject jsonObject;
+    ProgressDialog    progressDialog;
 
 
     @Override
@@ -111,7 +115,8 @@ public class ReportActivity extends AppCompatActivity {
 
         range = (Button) findViewById(R.id.toggleButton);
         if (Range > 100.0) {
-            range.setBackgroundColor(Color.RED);
+            range.setBackgroundResource(R.drawable.buttonshapered);
+
         }
         range.setText("المسافة : " + report.getRange() + " متر");
 
@@ -143,7 +148,7 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (imgbitmap == null || barcodetxt == null || Range > 100.0) {
+                if (imgbitmap == null || barcodetxt.equals("") || Range > 100.0) {
 
                     Alert_Dialog newDialog = new Alert_Dialog();
 
@@ -163,6 +168,7 @@ public class ReportActivity extends AppCompatActivity {
 
                         newDialog.range = "المسافة بعيدة";
                     }
+                    checkStatus();
                     report.setComment(comment.getText().toString());
                     jsonObject = setJsonObject();
                     newDialog.reportActivity = ReportActivity.this;
@@ -183,10 +189,26 @@ public class ReportActivity extends AppCompatActivity {
                                 report.getComment(),
                                 jsonObject.toString());
 
-                        //Toast.makeText(getApplicationContext(), " Data Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ReportActivity.this, VistsActivity.class);
-                        startActivity(intent);
-                        finish();
+                         progressDialog = ProgressDialog.show(ReportActivity.this, "" ,"جارى  رفع الزيارة , انتظر من فضلك...", true);
+
+                        Runnable progressRunnable = new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressDialog.cancel();
+                            }
+                        };
+
+                        Handler pdCanceller = new Handler();
+                        pdCanceller.postDelayed(progressRunnable, 20000);
+                        ;
+                        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                finish();
+                            }
+                        });
+
                     } catch (Exception ex) {
                         Toast.makeText(getApplicationContext(), "There is Error ", Toast.LENGTH_SHORT).show();
                     }
@@ -315,12 +337,12 @@ public class ReportActivity extends AppCompatActivity {
     public void checkStatus() {
         if (Range <= 100.0 && report.getTerminalSerial() == barcodetxt)
             report.setStatus("ناجحة");
+        else if (Range > 100.0 && report.getTerminalSerial() != barcodetxt)
+            report.setStatus("غير ناجحة");
         else if (Range > 100.0)
             report.setStatus("غير ناجحة (المسافة تعدت 100 متر)");
         else if (report.getTerminalSerial() != barcodetxt)
             report.setStatus("غير ناجحة (الباركود غير مطابق)");
-        else
-            report.setStatus("غير ناجحة");
 
 
     }

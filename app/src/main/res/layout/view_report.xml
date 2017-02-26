@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:text="Range"
                 android:id="@+id/toggleButton"
-                android:background="@android:color/holo_green_dark" />
+                android:background="@drawable/buttonshape2" />
 
             <View
                 android:layout_width="match_parent"
@@ -268,7 +268,10 @@
                        android:layout_height="wrap_content"
                        android:id="@+id/show_photo_btn"
                        android:text="اعرض الصورة"
-                       android:layout_gravity="center" />
+                       android:layout_gravity="center"
+                       android:background="@drawable/buttonshape"
+                       android:textColor="@color/button_text_color"
+                       />
                 </LinearLayout>
 
             </LinearLayout>
