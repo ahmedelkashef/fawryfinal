@@ -111,6 +111,7 @@ public class ReportActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy hh:mm a");//EEEE, MMMM dd, yyyy
 
         Date date1 = new Date();
+
         date.setText("التاريخ : " + dateFormat.format(date1));
 
         range = (Button) findViewById(R.id.toggleButton);

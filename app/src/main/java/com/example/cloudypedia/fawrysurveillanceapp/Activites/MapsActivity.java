@@ -4,14 +4,19 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.GPSHandller;
 import com.example.cloudypedia.fawrysurveillanceapp.Classes.Merchant;
@@ -150,9 +155,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
              currentMarker = mMap.addMarker(new MarkerOptions().position(currentLocation).title("My Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
              currentMarker.showInfoWindow();
 
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(getBaseContext());
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(getBaseContext());
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(getBaseContext());
+                snippet.setTextColor(Color.BLACK);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
+
         for (int i = 1 ; i<merchants.size() ; i++)
         {
-            String sinippet = "Address: "+ merchants.get(i).getAddress();
+            String sinippet = "Terminal ID : " + merchants.get(i).getTerminalID() +"\n"+"Address: "+ merchants.get(i).getAddress();
             marker =  mMap.addMarker(new MarkerOptions().position(new LatLng(merchants.get(i).getLatitude(), merchants.get(i).getLongitude()))
                     .title(merchants.get(i).getName()).snippet(sinippet));
 
