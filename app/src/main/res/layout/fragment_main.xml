@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/find_by_terminalNo"
-        android:src="@drawable/findbyacountno"
+        android:src="@drawable/findbyacountnoa"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/transparent"
         android:layout_marginTop="32dp"

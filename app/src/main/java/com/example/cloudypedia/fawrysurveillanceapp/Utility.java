@@ -1,30 +1,19 @@
 package com.example.cloudypedia.fawrysurveillanceapp;
 
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.location.LocationManager;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Handler;
-
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cloudypedia.fawrysurveillanceapp.Activites.MainActivity;
@@ -591,7 +580,7 @@ public class Utility {
         else if (imageButton == "sign")
         {
             ImageButton sign = (ImageButton) v.findViewById(R.id.homeButton);
-            sign.setImageResource(R.drawable.signinfinal);
+            sign.setImageResource(R.drawable.signout);
             sign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

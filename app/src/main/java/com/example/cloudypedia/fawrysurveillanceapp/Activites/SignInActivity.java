@@ -1,20 +1,16 @@
 package com.example.cloudypedia.fawrysurveillanceapp.Activites;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cloudypedia.fawrysurveillanceapp.AppConstants;
-import com.example.cloudypedia.fawrysurveillanceapp.Classes.Report;
 import com.example.cloudypedia.fawrysurveillanceapp.DataFetcher.LoadSettingTask;
 import com.example.cloudypedia.fawrysurveillanceapp.R;
 import com.example.cloudypedia.fawrysurveillanceapp.Utility;
@@ -25,7 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
@@ -151,7 +146,8 @@ public class SignInActivity extends AppCompatActivity implements
                 goToMainActivity();
             }
         } else {
-            // Signed out, show unauthenticated UI.
+            // Signed out, show unauthenticated UI
+          Toast.makeText(this,  "خطأ في الاتصال بالانترنت حاول مرة اخري" , Toast.LENGTH_SHORT).show();
             updateUI(false);
         }
     }
