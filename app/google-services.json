@@ -15,28 +15,28 @@
       },
       "oauth_client": [
         {
+          "client_id": "584666349039-b4qibs4a56r2p0sjmmi4gd2524fvo3au.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "584666349039-4l8nhujjq3b5gdm58acpmiek4ert1e30.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.adnroid.cloudypedia.attendancelocation",
-            "certificate_hash": "6F8FF830BB5EE8910EBDA52AD30AFEA5BF9FF9D6"
+            "certificate_hash": "6f8ff830bb5ee8910ebda52ad30afea5bf9ff9d6"
           }
+        },
+        {
+          "client_id": "584666349039-68jnnnpuuc0dq6eaiaj5mg0kj665812n.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "584666349039-u51jb5s5khhgkcsm0lbl789gmvoe0kse.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.adnroid.cloudypedia.attendancelocation",
-            "certificate_hash": "5504D386A1517A800AA91669C2A1214E456D24A1"
+            "certificate_hash": "5504d386a1517a800aa91669c2a1214e456d24a1"
           }
-        },
-        {
-          "client_id": "584666349039-b4qibs4a56r2p0sjmmi4gd2524fvo3au.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "584666349039-68jnnnpuuc0dq6eaiaj5mg0kj665812n.apps.googleusercontent.com",
-          "client_type": 3
         },
         {
           "client_id": "584666349039-hapvscpag4083e3vnai97a1on2m60cjm.apps.googleusercontent.com",
@@ -75,11 +75,19 @@
       },
       "oauth_client": [
         {
+          "client_id": "584666349039-cdkurao4efbid13sv9svnmr62lq2f67h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cloudypedia.fawrysurveillanceapp",
+            "certificate_hash": "9b47ee0d4c0eb0b8c2911ba6f1db4f74a6296d01"
+          }
+        },
+        {
           "client_id": "584666349039-5llhs0n4burch2cu6g5bnbejqf8qq2mv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cloudypedia.fawrysurveillanceapp",
-            "certificate_hash": "DF99F2C01940A92DA7FE239E15257E585FBC7653"
+            "certificate_hash": "df99f2c01940a92da7fe239e15257e585fbc7653"
           }
         },
         {
